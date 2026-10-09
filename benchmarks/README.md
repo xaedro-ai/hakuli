@@ -33,6 +33,17 @@ The anchors are stored machine-readable in `results/published.json`.
 
 ## Running a benchmark
 
+Reproducible environment (recommended):
+
+```bash
+docker build -f benchmarks/Dockerfile -t hakuli-bench .
+docker run --rm --gpus all -v $(pwd)/benchmarks/results:/workspace/benchmarks/results \
+    hakuli-bench python benchmarks/run_benchmark.py \
+    --config benchmarks/configs/memory_llama7b_hakuli.json
+```
+
+Or directly on the host:
+
 ```bash
 pip install -r benchmarks/requirements.txt
 python benchmarks/run_benchmark.py --config benchmarks/configs/memory_llama7b_hakuli.json

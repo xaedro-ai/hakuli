@@ -11,8 +11,8 @@
 
 \newcommand{\pending}{\textcolor{red}{[run pending]}}
 
-\title{\textbf{Hakuli: An Independent Clean-Room Implementation and\\ Reproducibility Study of APOLLO}\\[0.5em]
-\large Memory-efficient LLM training on a single consumer GPU}
+\title{\textbf{Hakuli: An Independent Clean-Room Implementation and Reproducibility Study of APOLLO}\\[0.5em]
+\large Memory-Efficient LLM Training on a Single Consumer GPU}
 
 \author{
 XAEDRO \\
@@ -38,7 +38,8 @@ source code; (ii)~a reproducibility study of APOLLO's memory and performance
 claims on consumer hardware; (iii)~a black-box comparison against the
 official \texttt{apollo-torch} package under an identical protocol and
 matched hyperparameters, in which the two implementations track each other
-within a mean per-step loss difference of 0.028 nats over 1000 steps; and
+within a mean absolute difference of 0.028 nats across logged training-loss
+observations over a 1000-step run; and
 (iv)~measured full-parameter training of a 7B
 model at batch size 16, sequence length 256, bf16 with gradient
 checkpointing, within 24\,GiB of peak allocated memory and without
@@ -211,7 +212,7 @@ training is healthy.
 
 \textbf{Protocol (controlled comparison).} Batch size 16, sequence length
 256, 1000 optimizer steps, learning rate $1\times10^{-5}$, rank 512,
-\texttt{update\_proj\_gap} 200 (five projection resample cycles), 10 warmup
+\texttt{update\_proj\_gap} 200, 10 warmup
 steps, and $\lambda=1$ in both implementations (applied under a square root
 in both). The official \texttt{apollo-torch} (v1.0.3) and Hakuli are run with
 this identical configuration, identical batches and seed, in the same
@@ -224,9 +225,12 @@ matched comparison therefore uses fine-tuning-scale hyperparameters.
 after resetting statistics at the end of warmup, so one-time initialization
 allocations are excluded; values are reported in GiB (powers of 1024), as
 returned by the CUDA allocator. Throughput is steady-state tokens/second
-measured over steps after warmup. Per-step metrics (loss, gradient norm,
-update norm, peak VRAM, throughput) are logged to JSONL, and validation loss
-is evaluated on 8 held-out batches every 100 steps. Raw JSON results, configs
+measured over steps after warmup. Training metrics (loss, gradient norm,
+update norm, peak VRAM, throughput) are logged every 10 steps to JSONL.
+Validation loss is evaluated on the same 8 fixed held-out batches every 100
+steps. Both implementations use the standard causal cross-entropy loss (the
+same code path); Cut Cross-Entropy is not used in the controlled comparison.
+Raw JSON results, configs
 and the harness are included in the repository (\texttt{benchmarks/}).
 
 \section{Reproduction of APOLLO}
@@ -252,7 +256,7 @@ Hakuli v1.0 implements no quantization. \\
 Structured (channel-wise) scaling matches AdamW-level quality & not tested &
 No comparable quality baseline or sufficient training in this study. \\
 Reproduces the reference optimization trajectory under matched hyperparameters & supported &
-Mean per-step training-loss difference 0.028 nats over 1000 steps; validation loss within 0.04 nats (Figure~\ref{fig:curves}). \\
+Mean absolute difference of 0.028 nats across logged training-loss observations over 1000 steps; validation loss within 0.04 nats (Figure~\ref{fig:curves}). \\
 \bottomrule
 \end{tabular}
 \caption{Status of APOLLO's reported claims under our hardware constraints.}
@@ -266,14 +270,16 @@ curves of Figure~\ref{fig:curves}. Both implementations fit 7B
 full-parameter training at batch size 16 within 24\,GiB: peak allocated
 memory is 19.44\,GiB for the official implementation and 20.51\,GiB for
 Hakuli; throughput is 1041 and 1026\,tokens/s respectively, and wall time
-for 1000 steps is 65.5 and 66.4 minutes. The per-step training losses track
-closely after warmup (mean absolute difference 0.028 nats, median 0.026),
+for 1000 steps is 65.5 and 66.4 minutes. The training losses track
+closely after warmup (mean absolute difference of 0.028 nats and median of
+0.026 across logged observations),
 and validation loss decreases monotonically in both runs, ending at 2.166
-(official) and 2.206 (Hakuli), a residual gap of 0.04 nats. We attribute
-the residual gap to the documented implementation deviations
-(Section~\ref{sec:deviations}) and to the single-seed design; the training
-curves overlap within batch-to-batch noise throughout, including the five
-projection-resample boundaries at steps 200, 400, 600, 800 and 1000. This
+(official) and 2.206 (Hakuli), a residual gap of 0.04 nats. The residual gap
+is consistent with the documented implementation deviations
+(Section~\ref{sec:deviations}) and the single-seed design; this study does
+not isolate its cause. The training
+curves overlap within batch-to-batch noise throughout, including the in-run
+projection-resample boundaries at steps 200, 400, 600 and 800. This
 supports the claim that Hakuli reproduces the optimization behavior of the
 reference implementation under matched hyperparameters.
 
@@ -281,8 +287,8 @@ reference implementation under matched hyperparameters.
 \centering
 \includegraphics[width=0.85\textwidth]{../benchmarks/results/loss_curves.png}
 \caption{Matched-scale comparison on LLaMA-7B (batch 16, sequence length
-256, 1000 steps, RTX 3090). Solid lines: per-step training loss (logged
-every 10 steps). Dashed lines: validation loss on 8 held-out batches.
+256, 1000 steps, RTX 3090). Solid lines: training loss, logged every 10
+steps. Dashed lines: validation loss on the same 8 fixed held-out batches.
 Official \texttt{apollo-torch} v1.0.3 and Hakuli use identical batches,
 seed, learning rate and scale.}
 \label{fig:curves}
@@ -332,7 +338,7 @@ Beyond the controlled comparison, we relate Hakuli to the broader family of
 memory-efficient optimizers:
 
 \begin{itemize}
-  \item \textbf{AdamW}: best quality baseline, but optimizer state alone
+  \item \textbf{AdamW}: standard full-rank baseline, but optimizer state alone
   ($\approx$54\,GB for LLaMA-7B) exceeds consumer GPUs.
   \item \textbf{GaLore}: SVD-based projection; periodic decomposition stalls
   and degraded stability at small batch sizes are well documented in later
@@ -358,7 +364,7 @@ observations we have and mark the rest as planned work:
   sequence length 3072, where activations dominate). A rank sweep at fixed
   sequence length is planned.
   \item \textbf{Projection interval.} \texttt{update\_proj\_gap}=200 was used
-  in the controlled runs (five resample cycles over 1000 steps), 500 in
+  in the controlled runs (resample boundaries every 200 steps), 500 in
   earlier internal runs; no systematic sensitivity analysis yet.
   \item \textbf{Scale.} The heuristic $\lambda \approx
   \mathrm{hidden}/\mathrm{rank}$ was used in fine-tuning runs; no sweep yet.
@@ -412,7 +418,8 @@ python benchmarks/table.py
 The official comparison additionally requires \texttt{pip install
 apollo-torch} (v1.0.3) and the config
 \texttt{memory\_llama7b\_apollo.json}. Environment: Docker container based on
-NVIDIA NGC PyTorch 24.10, Python 3.11. Initial public commit:
+NVIDIA NGC PyTorch 24.10 (\texttt{benchmarks/Dockerfile}), Python 3.11.
+Initial public commit:
 \texttt{a8ef673}.
 \section{License and Provenance}
 \label{sec:license}
