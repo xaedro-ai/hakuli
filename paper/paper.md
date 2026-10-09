@@ -98,7 +98,7 @@ We attempted to reproduce the reported claims that are testable on a single 24 G
 
 **Controlled comparison.** Under the protocol of Section 5 (matched learning rate, scale, batches and seed), the official `apollo-torch` v1.0.3 and Hakuli produce the training and validation curves of the figure below. Both implementations fit 7B full-parameter training at batch size 16 within 24 GiB: peak allocated memory is 19.44 GiB for the official implementation and 20.51 GiB for Hakuli; throughput is 1041 and 1026 tokens/s respectively, and wall time for 1000 steps is 65.5 and 66.4 minutes. The training losses track closely after warmup (mean absolute difference of 0.028 nats and median of 0.026 across logged observations), and validation loss decreases monotonically in both runs, ending at 2.166 (official) and 2.206 (Hakuli), a residual gap of 0.04 nats. The residual gap is consistent with the documented implementation deviations (Section 10) and the single-seed design; this study does not isolate its cause. The training curves overlap within batch-to-batch noise throughout, including the in-run projection-resample boundaries at steps 200, 400, 600 and 800. This supports the claim that Hakuli reproduces the optimization behavior of the reference implementation under matched hyperparameters.
 
-![Matched-scale loss curves](../benchmarks/results/loss_curves.png)
+![Matched-scale loss curves](loss_curves.png)
 
 *Matched-scale comparison on LLaMA-7B (batch 16, sequence length 256, 1000 steps, RTX 3090). Solid lines: training loss, logged every 10 steps. Dashed lines: validation loss on the same 8 fixed held-out batches. Official `apollo-torch` v1.0.3 and Hakuli use identical batches, seed, learning rate and scale.*
 
