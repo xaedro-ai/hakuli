@@ -1,0 +1,67 @@
+cff-version: 1.2.0
+message: "If you use Hakuli in your research, please cite it as below."
+title: "Hakuli: Memory-Efficient Full-Parameter LLM Training without SVD"
+abstract: >-
+  Hakuli is a PyTorch optimizer for full-parameter training and fine-tuning of
+  large language models with SGD-like optimizer memory and AdamW-level quality.
+  It approximates channel-wise gradient scaling from a low-rank Gaussian random
+  projection and performs no singular value decomposition at any step.
+type: software
+authors:
+  - name: "XAEDRO"
+version: 1.0.0
+date-released: "2026-10-09"
+license: Apache-2.0
+repository-code: "https://github.com/xaedro/hakuli"
+keywords:
+  - llm
+  - optimizer
+  - memory-efficient
+  - fine-tuning
+  - training
+  - low-rank
+references:
+  - type: conference-paper
+    title: "GaLore: Memory-Efficient LLM Training by Gradient Low-Rank Projection"
+    authors:
+      - family-names: Zhao
+        given-names: Jiawei
+      - family-names: Zhang
+        given-names: Zhenyu
+      - family-names: Chen
+        given-names: Beidi
+      - family-names: Wang
+        given-names: Zhangyang
+      - family-names: Anandkumar
+        given-names: Anima
+      - family-names: Tian
+        given-names: Yuandong
+    conference:
+      name: "International Conference on Machine Learning (ICML)"
+    year: 2024
+  - type: conference-paper
+    title: "APOLLO: SGD-like Memory, AdamW-level Performance"
+    authors:
+      - family-names: Zhu
+        given-names: Hanqing
+      - family-names: Zhang
+        given-names: Zhenyu
+      - family-names: Cong
+        given-names: Wenyan
+      - family-names: Liu
+        given-names: Xi
+      - family-names: Park
+        given-names: Sem
+      - family-names: Chandra
+        given-names: Vikas
+      - family-names: Long
+        given-names: Bo
+      - family-names: Pan
+        given-names: David Z.
+      - family-names: Wang
+        given-names: Zhangyang
+      - family-names: Lee
+        given-names: Jinwon
+    conference:
+      name: "Conference on Machine Learning and Systems (MLSys)"
+    year: 2025
