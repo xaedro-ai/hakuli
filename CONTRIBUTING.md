@@ -6,7 +6,7 @@ development workflow.
 ## Development setup
 
 ```bash
-git clone https://github.com/xaedro/hakuli.git
+git clone https://github.com/xaedro-ai/hakuli.git
 cd hakuli
 python -m venv .venv
 . .venv/bin/activate        # Windows: .venv\Scripts\activate

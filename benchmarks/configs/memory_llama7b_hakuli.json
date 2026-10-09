@@ -4,12 +4,16 @@
   "dataset": "c4",
   "batch_size": 16,
   "seq_len": 256,
-  "steps": 300,
+  "steps": 1000,
   "warmup_steps": 10,
-  "lr": 0.005,
+  "lr": 1e-05,
   "rank": 512,
-  "scale": 8.0,
-  "update_proj_gap": 500,
+  "scale": 1.0,
+  "update_proj_gap": 200,
   "seed": 0,
-  "output": "benchmarks/results/memory_llama7b_hakuli.json"
+  "eval_batches": 8,
+  "eval_every": 100,
+  "print_every": 10,
+  "output": "benchmarks/results/memory_llama7b_hakuli.json",
+  "log_jsonl": "benchmarks/results/memory_llama7b_hakuli.jsonl"
 }

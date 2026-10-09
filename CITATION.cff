@@ -12,7 +12,7 @@ authors:
 version: 1.0.0
 date-released: "2026-10-09"
 license: Apache-2.0
-repository-code: "https://github.com/xaedro/hakuli"
+repository-code: "https://github.com/xaedro-ai/hakuli"
 keywords:
   - llm
   - optimizer

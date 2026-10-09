@@ -6,23 +6,26 @@ Reproducible benchmarks for the Hakuli optimizer. Everything here is run by
 
 ## Hardware and protocol
 
-- **Our measurements**: single NVIDIA RTX 3090 (24 GB), bf16, PyTorch SDPA
+- **Our measurements**: single NVIDIA RTX 3090 (24 GiB), bf16, PyTorch SDPA
   attention, gradient checkpointing enabled, per-layer weight updates for
   low-rank methods (gradients released eagerly), packed token streams (no
-  padding).
+  padding). Peak memory is reported in GiB (powers of 1024) as returned by
+  `torch.cuda.max_memory_allocated`. Controlled runs use batch size 16,
+  sequence length 256, 1000 optimizer steps, `update_proj_gap` 200 (five
+  projection resample cycles), learning rate 5e-3.
 - **Published anchors**: measured by the respective authors on different
-  hardware of the same 24 GB class or larger. They are cited for context; the
-  protocol details differ (see each source). We re-run every method we can
-  under one protocol for the controlled comparisons.
+  hardware of the same 24 GiB class or larger. Values are quoted as reported
+  (unit not normalized). They are cited for context; the protocol details
+  differ (see each source).
 
 ## Published anchors (LLaMA-7B)
 
 | Method | GPU | Batch | Peak VRAM | Source |
 |---|---|---|---|---|
-| AdamW | 24 GB class | 16 | does not fit (fp32 states alone ≈ 61 GB) | GaLore paper |
-| GaLore-8bit | RTX 4090 24GB | 16 | 22.8 GB | https://github.com/jiaweizzhao/GaLore |
-| Q-GaLore-8bit | A6000 48GB | 16 | 15.26 GB | https://github.com/VITA-Group/Q-GaLore |
-| APOLLO | A100 80GB | 1 | 11 GB | https://github.com/zhuhanqing/APOLLO |
+| AdamW | 24 GiB class | 16 | does not fit (fp32 states alone ≈ 54 GB) | GaLore paper |
+| GaLore-8bit | RTX 4090 24GB | 16 | 22.8 (as reported) | https://github.com/jiaweizzhao/GaLore |
+| Q-GaLore-8bit | A6000 48GB | 16 | 15.26 (as reported) | https://github.com/VITA-Group/Q-GaLore |
+| APOLLO | A100 80GB | 1 | 11 (as reported) | https://github.com/zhuhanqing/APOLLO |
 
 The anchors are stored machine-readable in `results/published.json`.
 

@@ -19,7 +19,7 @@ specification; no source code from the reference implementation was used.
 Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 [`NOTICE`](NOTICE) for academic attributions.
 
-[![CI](https://github.com/xaedro/hakuli/actions/workflows/ci.yml/badge.svg)](https://github.com/xaedro/hakuli/actions/workflows/ci.yml)
+[![CI](https://github.com/xaedro-ai/hakuli/actions/workflows/ci.yml/badge.svg)](https://github.com/xaedro-ai/hakuli/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/pytorch-2.1%2B-ee4c2c.svg)](https://pytorch.org)
@@ -31,7 +31,7 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 | | AdamW | GaLore | **Hakuli** |
 |---|---|---|---|
 | Full-parameter training | Yes | Yes | Yes |
-| Optimizer memory (7B, rank 256) | ~61 GB | ~9 GB | **~2.4 GB** |
+| Optimizer memory (7B, rank 256) | ≈54 GB (LLaMA-7B) | ~9 GB | **~2.4 GB** |
 | Periodic SVD | None | Every `gap` steps | **None** |
 | Stable at small batch sizes | Yes | Subspace noise | Yes |
 | Dependency footprint | torch | galore-torch | **torch only** |
@@ -52,7 +52,7 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 Hakuli is dependency-light (PyTorch only). Until the first PyPI release:
 
 ```bash
-git clone https://github.com/xaedro/hakuli.git
+git clone https://github.com/xaedro-ai/hakuli.git
 cd hakuli
 pip install -e .
 ```
@@ -140,9 +140,8 @@ for p in lowrank_params:
 
 ## Documentation
 
-- [`paper/main.tex`](paper/main.tex) and [`docs/paper.md`](docs/paper.md):
-  technical report: independent clean-room implementation and reproducibility
-  study of APOLLO.
+- [`paper/`](paper/): technical report — LaTeX source (`main.tex`) and
+  Markdown version (`paper.md`).
 - [`benchmarks/RESULTS.md`](benchmarks/RESULTS.md): measured memory and
   throughput results.
 - [`docs/design.md`](docs/design.md): algorithm, update rule, memory model.

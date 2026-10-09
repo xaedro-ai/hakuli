@@ -5,3 +5,4 @@ accelerate>=0.30
 bitsandbytes>=0.43
 galore-torch
 q-galore-torch
+matplotlib>=3.8

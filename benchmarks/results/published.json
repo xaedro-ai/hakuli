@@ -1,13 +1,13 @@
 {
-  "notes": "Published peak-memory anchors for LLaMA-7B training on 24 GB-class GPUs, as reported by the respective authors. Protocols differ per source; see benchmarks/README.md. AdamW fp32 optimizer states alone are about 61 GB for a 7B model, so full AdamW training does not fit on 24 GB.",
+  "notes": "Published peak-memory anchors for LLaMA-7B training on 24 GiB-class GPUs, as reported by the respective authors. Values are quoted as reported (unit not normalized). Protocols differ per source; see benchmarks/README.md. AdamW fp32 optimizer state alone is about 54 GB for LLaMA-7B (6.74B parameters x 8 bytes), excluding gradients and master weights, so full AdamW training does not fit on 24 GiB.",
   "anchors": [
     {
       "method": "AdamW",
       "model": "LLaMA-7B",
-      "gpu": "24 GB class",
+      "gpu": "24 GiB class",
       "batch": 16,
-      "peak_vram_gb": null,
-      "protocol": "full-parameter training; does not fit in 24 GB",
+      "peak_vram_reported": null,
+      "protocol": "full-parameter training; does not fit in 24 GiB",
       "source": "GaLore (ICML 2024), https://arxiv.org/abs/2403.03507"
     },
     {
@@ -15,7 +15,7 @@
       "model": "LLaMA-7B",
       "gpu": "RTX 4090 24GB",
       "batch": 16,
-      "peak_vram_gb": 22.8,
+      "peak_vram_reported": 22.8,
       "protocol": "C4 pretraining, per-layer updates, activation checkpointing",
       "source": "https://github.com/jiaweizzhao/GaLore"
     },
@@ -24,7 +24,7 @@
       "model": "LLaMA-7B",
       "gpu": "A6000 48GB",
       "batch": 16,
-      "peak_vram_gb": 15.26,
+      "peak_vram_reported": 15.26,
       "protocol": "C4 pretraining, per-layer updates, activation checkpointing, INT4 projection",
       "source": "https://github.com/VITA-Group/Q-GaLore"
     },
@@ -33,7 +33,7 @@
       "model": "LLaMA-7B",
       "gpu": "A100 80GB",
       "batch": 1,
-      "peak_vram_gb": 11.0,
+      "peak_vram_reported": 11.0,
       "protocol": "C4 pretraining, single batch",
       "source": "https://github.com/zhuhanqing/APOLLO"
     }

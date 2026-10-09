@@ -3,18 +3,19 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage[numbers]{natbib}
 \usepackage{xcolor}
 \usepackage{microtype}
 
 \newcommand{\pending}{\textcolor{red}{[run pending]}}
 
-\title{\textbf{Hakuli: An Independent Clean-Room Implementation and\\ Reproducibility Study of APOLLO for Memory-Efficient LLM Training}}
+\title{\textbf{Hakuli: An Independent Clean-Room Implementation and\\ Reproducibility Study of APOLLO}\\[0.5em]
+\large Memory-efficient LLM training on a single consumer GPU}
 
 \author{
 XAEDRO \\
-\small\texttt{https://github.com/xaedro/hakuli}
+\small\texttt{https://github.com/xaedro-ai/hakuli}
 }
 
 \date{October 2026}
@@ -30,32 +31,38 @@ APOLLO optimizer (Zhu et al., MLSys 2025) released under the Apache License
 the published APOLLO specification, which in turn builds on the low-rank
 gradient projection of GaLore (Zhao et al., ICML 2024) and the norm-growth
 limiter of Fira (Chen et al., NeurIPS 2025). Our contributions are: (i)~a
-self-contained, dependency-free implementation written from the published
-description without using reference source code; (ii)~a reproducibility study
-of APOLLO's memory and performance claims on consumer hardware; (iii)~a
-black-box comparison against the official \texttt{apollo-torch} package under
-an identical protocol on a single NVIDIA RTX 3090; and (iv)~measured
-full-parameter training of a 7B model at batch size 16 within 24\,GB without
-quantization. We also document every deviation from the reference formulation
-and provide all scripts, configs and raw results for reproduction.
+self-contained, PyTorch-only implementation with no additional runtime
+dependencies, written from the published description without using reference
+source code; (ii)~a reproducibility study of APOLLO's memory and performance
+claims on consumer hardware; (iii)~a black-box comparison against the
+official \texttt{apollo-torch} package under an identical protocol on a
+single NVIDIA RTX 3090; and (iv)~measured full-parameter training of a 7B
+model at batch size 16, sequence length 256, bf16 with gradient
+checkpointing, within 24\,GiB of peak allocated memory and without
+quantization. We also document every deviation from the reference
+formulation and provide all scripts, configs and raw results for
+reproduction.
 \end{abstract}
 
 \noindent\textbf{In thirty seconds.} Full-parameter training of 7B language
-models is normally out of reach on a 24\,GB consumer GPU because AdamW's
-optimizer state alone needs roughly 61\,GB. Hakuli tracks Adam-style moments
-in a low-rank random subspace and applies a channel-wise scaling to the full
-gradient, reducing optimizer state to a few gigabytes. We rebuilt this method
-independently from its public specification, verified it against the official
-implementation in a black-box comparison, and measured 7B training at batch
-size 16 within 20.5\,GB on an RTX 3090. The software is Apache-2.0.
+models is normally out of reach on a 24\,GiB consumer GPU because AdamW's
+optimizer state alone needs roughly 54\,GB for LLaMA-7B (6.74B parameters
+$\times$ 8 bytes, excluding gradients and master weights). Hakuli tracks
+Adam-style moments in a low-rank random subspace and applies a channel-wise
+scaling to the full gradient, reducing optimizer state to a few gigabytes. We
+rebuilt this method independently from its public specification, verified it
+against the official implementation in a black-box comparison, and measured
+7B training at batch size 16 within 20.5\,GiB of peak allocated memory on an
+RTX 3090. The software is Apache-2.0.
 
 \section{Introduction}
 
 Memory-efficient optimizers have become a practical requirement for
 full-parameter training of large language models (LLMs) on commodity
 hardware. AdamW \citep{loshchilov2019adamw} maintains two fp32 moments per
-trainable parameter, approximately 8 bytes per parameter, which amounts to
-about 61\,GB of optimizer state for a 7B model. Low-rank methods such as
+trainable parameter, 8 bytes per parameter, which amounts to about 54\,GB
+(decimal) for LLaMA-7B's 6.74B parameters, excluding gradients and master
+weights. Low-rank methods such as
 GaLore \citep{zhao2024galore}, Fira \citep{chen2025fira}, APOLLO
 \citep{zhu2025apollo} and Q-GaLore \citep{zhang2024qgalore} reduce this
 burden by tracking optimizer statistics in a compressed subspace.
@@ -200,16 +207,24 @@ comparable to from-scratch runs and serves only as a sanity check that
 training is healthy.
 
 \textbf{Protocol (controlled comparison).} Batch size 16, sequence length
-256, 300 optimizer steps, learning rate $5\times10^{-3}$, rank 512,
-\texttt{update\_proj\_gap} 500, 10 warmup steps. The official
-\texttt{apollo-torch} (v1.0.3) and Hakuli are run with this identical
-configuration in the same harness.
+256, 1000 optimizer steps, learning rate $1\times10^{-5}$, rank 512,
+\texttt{update\_proj\_gap} 200 (five projection resample cycles), 10 warmup
+steps, and $\lambda=1$ in both implementations (applied under a square root
+in both). The official \texttt{apollo-torch} (v1.0.3) and Hakuli are run with
+this identical configuration, identical batches and seed, in the same
+harness. At aggressive settings ($\eta=5\times10^{-3}$, $\lambda=8$) the
+first optimizer step perturbs the pretrained weights substantially, and both
+implementations exhibit the same spike-and-recovery transient; the matched
+comparison therefore uses fine-tuning-scale hyperparameters.
 
 \textbf{Measurement.} Peak VRAM is \texttt{torch.cuda.max\_memory\_allocated}
 after resetting statistics at the end of warmup, so one-time initialization
-allocations are excluded. Throughput is steady-state tokens/second measured
-over steps after warmup. Raw JSON results, configs and the harness are
-included in the repository (\texttt{benchmarks/}).
+allocations are excluded; values are reported in GiB (powers of 1024), as
+returned by the CUDA allocator. Throughput is steady-state tokens/second
+measured over steps after warmup. Per-step metrics (loss, gradient norm,
+update norm, peak VRAM, throughput) are logged to JSONL, and validation loss
+is evaluated on 8 held-out batches every 100 steps. Raw JSON results, configs
+and the harness are included in the repository (\texttt{benchmarks/}).
 
 \section{Reproduction of APOLLO}
 \label{sec:reproduction}
@@ -231,26 +246,21 @@ Hardware unavailable. \\
 LLaMA-13B with naive DDP on A100-80GB & not testable & Hardware unavailable. \\
 7B under 12\,GB combined with quantization & not addressed &
 Hakuli v1.0 implements no quantization. \\
-Structured (channel-wise) scaling matches AdamW-level quality & consistent &
-Healthy loss trajectories in our runs; no quality regression observed. \\
+Structured (channel-wise) scaling matches AdamW-level quality & not tested &
+No comparable quality baseline or sufficient training in this study. \\
 \bottomrule
 \end{tabular}
 \caption{Status of APOLLO's reported claims under our hardware constraints.}
 \label{tab:claims}
 \end{table}
 
-\textbf{Black-box comparison.} Under the protocol of Section~\ref{sec:setup},
-the official \texttt{apollo-torch} v1.0.3 peaked at 19.44\,GB and reached
-1058.1\,tokens/s (final loss 6.73); Hakuli peaked at
-\textbf{20.51\,GB} and reached \textbf{1065.1}\,tokens/s (final loss 2.36).
-Both implementations thus fit 7B full-parameter training at batch size 16
-within 24\,GB on this GPU. The final losses are not directly comparable: the
-two implementations apply their scale hyperparameters under different
-conventions, and each was run with its own documented default heuristic;
-memory and throughput are the controlled quantities. Remaining differences
-between the two rows reflect implementation details listed in
-Section~\ref{sec:deviations} and run-to-run variation, not algorithmic
-divergence.
+\textbf{Controlled comparison.} Under the protocol of Section~\ref{sec:setup}
+(matched learning rate, scale, batches and seed), the official
+\texttt{apollo-torch} v1.0.3 and Hakuli produce the training and validation
+curves of Figure~\ref{fig:curves}. \textcolor{red}{[results pending: peak
+VRAM, throughput, final training loss and final validation loss for both
+implementations; curve overlap analysis across the five resample
+boundaries]}
 
 \section{Systems Performance}
 \label{sec:systems}
@@ -281,7 +291,7 @@ Table~\ref{tab:main} summarizes peak memory. The controlled rows show that
 both the official implementation and Hakuli enable LLaMA-7B full-parameter
 training at batch size 16, sequence length 256, within 24\,GB, without
 quantization. Hakuli's measured throughput of 1065\,tokens/s corresponds to
-about 1.6\,s per optimizer step at 4096 tokens per step.
+about 3.8\,s per optimizer step at 4096 tokens per step.
 
 \textbf{Long-context fine-tuning.} In a separate internal run on the same
 GPU, a 7B model was full-parameter fine-tuned at sequence length 3072, batch
@@ -297,7 +307,7 @@ memory-efficient optimizers:
 
 \begin{itemize}
   \item \textbf{AdamW}: best quality baseline, but optimizer state alone
-  ($\approx$61\,GB for 7B) exceeds consumer GPUs.
+  ($\approx$54\,GB for LLaMA-7B) exceeds consumer GPUs.
   \item \textbf{GaLore}: SVD-based projection; periodic decomposition stalls
   and degraded stability at small batch sizes are well documented in later
   work \citep{zhu2025apollo}.
@@ -321,8 +331,9 @@ observations we have and mark the rest as planned work:
   measured); rank 256 was used in our long-context run (23.3\,GB at
   sequence length 3072, where activations dominate). A rank sweep at fixed
   sequence length is planned.
-  \item \textbf{Projection interval.} \texttt{update\_proj\_gap}=500 was used
-  throughout; no sensitivity analysis yet.
+  \item \textbf{Projection interval.} \texttt{update\_proj\_gap}=200 was used
+  in the controlled runs (five resample cycles over 1000 steps), 500 in
+  earlier internal runs; no systematic sensitivity analysis yet.
   \item \textbf{Scale.} The heuristic $\lambda \approx
   \mathrm{hidden}/\mathrm{rank}$ was used in fine-tuning runs; no sweep yet.
   \item \textbf{Precision.} bfloat16 projections were used in all runs; a
@@ -365,7 +376,7 @@ harness, all JSON configs, and the raw result files reported here.
 Reproduction:
 
 \begin{verbatim}
-git clone https://github.com/xaedro/hakuli
+git clone https://github.com/xaedro-ai/hakuli
 pip install -r benchmarks/requirements.txt
 python benchmarks/run_benchmark.py \
   --config benchmarks/configs/memory_llama7b_hakuli.json
@@ -377,7 +388,6 @@ apollo-torch} (v1.0.3) and the config
 \texttt{memory\_llama7b\_apollo.json}. Environment: Docker container based on
 NVIDIA NGC PyTorch 24.10, Python 3.11. Initial public commit:
 \texttt{a8ef673}.
-
 \section{License and Provenance}
 \label{sec:license}
 
@@ -387,8 +397,11 @@ third-party patents. The official APOLLO implementation is released under
 CC-BY-NC (with portions from GaLore under Apache-2.0); GaLore and Fira are
 Apache-2.0. Hakuli is not affiliated with, or endorsed by, the APOLLO
 authors. Academic attributions are recorded in the repository \texttt{NOTICE}
-file. We thank the APOLLO, GaLore and Fira authors for releasing their
-implementations and documentation, which made this study possible.
+file. We thank the APOLLO, GaLore and Fira authors for publishing the method
+and its documentation, which made this study possible. The official APOLLO
+implementation was used exclusively as an external black box in the later
+evaluation phase (Section~\ref{sec:cleanroom}); no part of it is included in
+Hakuli.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

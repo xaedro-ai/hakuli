@@ -10,7 +10,8 @@ algorithmic descriptions. See the repository `NOTICE` file for attributions.
 
 Full-parameter fine-tuning of modern language models is dominated by optimizer
 memory: AdamW keeps two fp32 moments per trainable parameter, which is roughly
-8 bytes per parameter, about 61 GB for a 7.6B-parameter model. Low-rank
+8 bytes per parameter, about 61 GB for a 7.6B-parameter model (Qwen2.5-7B)
+and about 54 GB for LLaMA-7B (6.74B parameters). Low-rank
 optimizers reduce this by tracking moments in a compressed subspace, but
 SVD-based projection methods (GaLore) pay a heavy periodic decomposition cost
 and become unstable at small batch sizes, which are exactly the regimes where

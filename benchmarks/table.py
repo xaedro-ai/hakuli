@@ -57,8 +57,8 @@ def main() -> None:
         "|---|---|---|---|---|---|---|---|",
     ]
     for anchor in load_published():
-        vram = anchor.get("peak_vram_gb")
-        vram_text = "does not fit" if vram is None else f"{vram:g} GB"
+        vram = anchor.get("peak_vram_reported")
+        vram_text = "does not fit" if vram is None else f"{vram:g} GiB (as reported)"
         lines.append(
             "| {method} | {model} | {gpu} | {batch} | {vram} | — | — | published: {source} |".format(
                 method=anchor["method"],
@@ -71,12 +71,12 @@ def main() -> None:
         )
     for run in load_runs():
         lines.append(
-            "| {method} | {model} | {gpu} | {batch} | {vram} GB | {tps} | {loss} | this work |".format(
+            "| {method} | {model} | {gpu} | {batch} | {vram} GiB | {tps} | {loss} | this work |".format(
                 method=DISPLAY_NAMES.get(run["method"], run["method"]),
                 model=run["model"],
                 gpu=run["gpu"],
                 batch=run["batch_size"],
-                vram=fmt(run["peak_vram_gb"]),
+                vram=fmt(run["peak_vram_gib"]),
                 tps=fmt(run["tokens_per_sec"]),
                 loss=fmt(run["final_loss"]),
             )

@@ -1,0 +1,11 @@
+{"step": 0, "val_loss": 2.2299}
+{"step": 10, "loss": 2.301, "grad_norm": 3.3985, "lr": 1e-05, "tokens_per_sec_window": 1043.9, "peak_vram_gib": 20.51, "update_norm": 30548.0}
+{"step": 20, "loss": 2.6159, "grad_norm": 3.8333, "lr": 1e-05, "tokens_per_sec_window": 1043.4, "peak_vram_gib": 20.51, "update_norm": 23638.5}
+{"step": 30, "loss": 2.1644, "grad_norm": 3.9558, "lr": 1e-05, "tokens_per_sec_window": 1040.3, "peak_vram_gib": 20.51, "update_norm": 19513.0818}
+{"step": 40, "loss": 2.4384, "grad_norm": 3.8825, "lr": 1e-05, "tokens_per_sec_window": 1049.2, "peak_vram_gib": 20.51, "update_norm": 15880.7209}
+{"step": 50, "loss": 2.805, "grad_norm": 4.6359, "lr": 1e-05, "tokens_per_sec_window": 1043.3, "peak_vram_gib": 20.51, "update_norm": 15856.0809}
+{"step": 60, "loss": 2.5521, "grad_norm": 3.3998, "lr": 1e-05, "tokens_per_sec_window": 1039.7, "peak_vram_gib": 20.51, "update_norm": 14043.2646}
+{"step": 70, "loss": 2.4997, "grad_norm": 3.5522, "lr": 1e-05, "tokens_per_sec_window": 1039.0, "peak_vram_gib": 20.51, "update_norm": 12610.814}
+{"step": 80, "loss": 2.6513, "grad_norm": 3.5464, "lr": 1e-05, "tokens_per_sec_window": 1063.4, "peak_vram_gib": 20.51, "update_norm": 12099.1128}
+{"step": 90, "loss": 2.1197, "grad_norm": 4.7291, "lr": 1e-05, "tokens_per_sec_window": 1055.9, "peak_vram_gib": 20.51, "update_norm": 11804.5644}
+{"step": 100, "loss": 1.7439, "grad_norm": 4.3145, "lr": 1e-05, "tokens_per_sec_window": 1073.8, "peak_vram_gib": 20.51, "update_norm": 11021.04, "val_loss": 2.2256}
