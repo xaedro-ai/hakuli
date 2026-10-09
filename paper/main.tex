@@ -92,7 +92,7 @@ APOLLO method under Apache-2.0. We emphasize what this work is and is not:
   specification-derived reference before any official code was executed.
   \item \textbf{A} reproducibility study: we test which of APOLLO's reported
   memory and performance claims can be independently reproduced on a single
-  24\,GB consumer GPU, and which cannot be tested with our hardware.
+  24\,GiB consumer GPU, and which cannot be tested with our hardware.
   \item \textbf{A} black-box comparison: identical protocol, same GPU, official
   \texttt{apollo-torch} v1.0.3 versus Hakuli.
   \item \textbf{A} documented set of deviations from the reference formulation
@@ -189,8 +189,8 @@ dependencies beyond PyTorch ($\geq$2.1). Design choices:
   bias-free Adam-style direction. A shared AdamW covers these parameters.
   \item \textbf{Decoupled weight decay}, standard \texttt{state\_dict}
   checkpointing, and closure support.
-  \item \textbf{Optional loss-memory reduction.} In our training runs we pair
-  Hakuli with Cut Cross-Entropy \citep{wijmans2025cce}, which computes the
+  \item \textbf{Optional loss-memory reduction.} In some memory-constrained
+  training runs we pair Hakuli with Cut Cross-Entropy \citep{wijmans2025cce}, which computes the
   cross-entropy without materializing the full logit matrix.
 \end{itemize}
 
@@ -202,7 +202,7 @@ $r=256$ this is approximately 2.4\,GB in total.
 \section{Experimental Setup}
 \label{sec:setup}
 
-\textbf{Hardware and software.} Single NVIDIA RTX 3090 (24\,GB), PyTorch
+\textbf{Hardware and software.} Single NVIDIA RTX 3090 (24\,GiB), PyTorch
 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1, SDPA attention, gradient
 checkpointing enabled, bf16 weights and gradients.
 
@@ -239,7 +239,7 @@ and the harness are included in the repository (\texttt{benchmarks/}).
 \label{sec:reproduction}
 
 We attempted to reproduce the reported claims that are testable on a single
-24\,GB GPU. Table~\ref{tab:claims} summarizes the status.
+24\,GiB GPU. Table~\ref{tab:claims} summarizes the status.
 
 \begin{table}[t]
 \centering
@@ -249,7 +249,7 @@ We attempted to reproduce the reported claims that are testable on a single
 APOLLO claim & Status here & Evidence / reason \\
 \midrule
 7B pre-training within 11\,GB (A100, batch 1) & partially addressed &
-Different batch size and GPU; we measure at batch 16 on 24\,GB (Table~\ref{tab:main}). \\
+Different batch size and GPU; we measure at batch 16 on 24\,GiB (Table~\ref{tab:main}). \\
 Up to $3\times$ throughput vs.\ Adam on $4\times$A100-80GB & not testable &
 Hardware unavailable. \\
 LLaMA-13B with naive DDP on A100-80GB & not testable & Hardware unavailable. \\
@@ -306,31 +306,31 @@ seed, learning rate and scale.}
 \toprule
 Method & GPU & Batch & Rank & State precision & Peak VRAM & Source \\
 \midrule
-AdamW & 24\,GB class & 16 & --- & fp32 & does not fit & \citep{zhao2024galore} \\
+AdamW & 24\,GiB class & 16 & --- & fp32 & does not fit & \citep{zhao2024galore} \\
 GaLore-8bit & RTX 4090 & 16 & 1024 & int8 & 22.8\,GB & GaLore repo \\
 Q-GaLore & A6000 & 16 & 1024 & int4 & 15.26\,GB & Q-GaLore repo \\
-APOLLO (official) & RTX 3090 & 16 & 512 & bf16/fp32 & 19.44\,GB & this work \\
-\textbf{Hakuli} & RTX 3090 & 16 & 512 & bf16/fp32 & \textbf{20.51\,GB} & this work \\
+APOLLO (official) & RTX 3090 & 16 & 512 & bf16/fp32 & 19.44\,GiB & this work \\
+\textbf{Hakuli} & RTX 3090 & 16 & 512 & bf16/fp32 & \textbf{20.51\,GiB} & this work \\
 \bottomrule
 \end{tabular}
-\caption{Peak training memory for LLaMA-7B on 24\,GB-class GPUs. Published
-anchors were measured by their authors on different hardware, ranks and
-state precisions; they are included for context, not as controlled
+\caption{Peak training memory for LLaMA-7B on 24\,GiB-class GPUs. Published
+anchors are quoted as reported by their authors on different hardware, ranks
+and state precisions; they are included for context, not as controlled
 comparisons. The controlled comparison is the last two rows (same protocol,
-same GPU).}
+same GPU); our values are GiB as returned by the CUDA allocator.}
 \label{tab:main}
 \end{table}
 
 Table~\ref{tab:main} summarizes peak memory. The controlled rows show that
 both the official implementation and Hakuli enable LLaMA-7B full-parameter
-training at batch size 16, sequence length 256, within 24\,GB, without
+training at batch size 16, sequence length 256, within 24\,GiB, without
 quantization. Hakuli's measured throughput of 1026\,tokens/s corresponds to
 about 4.0\,s per optimizer step at 4096 tokens per step.
 
 \textbf{Long-context fine-tuning.} In a separate internal run on the same
 GPU, a 7B model was full-parameter fine-tuned at sequence length 3072, batch
-size 4, rank 256, using Hakuli with Cut Cross-Entropy, peaking at 23.3\,GB.
-This demonstrates that the memory profile holds at long context, where
+size 4, rank 256, using Hakuli with Cut Cross-Entropy, peaking at 23.3\,GiB.
+This shows that the configuration remains feasible at longer context, where
 activation memory dominates.
 
 \section{Comparison with Related Methods}

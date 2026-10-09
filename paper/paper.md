@@ -24,7 +24,7 @@ This paper presents Hakuli, an independent, clean-room implementation of the APO
 
 - **Not** a new optimizer. The update rule follows APOLLO's published specification. We explicitly reject any framing of Hakuli as an algorithmic invention.
 - **An** independent implementation: single file, PyTorch-only, no reference source code consulted, numerically validated against a specification-derived reference before any official code was executed.
-- **A** reproducibility study: we test which of APOLLO's reported memory and performance claims can be independently reproduced on a single 24 GB consumer GPU, and which cannot be tested with our hardware.
+- **A** reproducibility study: we test which of APOLLO's reported memory and performance claims can be independently reproduced on a single 24 GiB consumer GPU, and which cannot be tested with our hardware.
 - **A** black-box comparison: identical protocol, same GPU, official `apollo-torch` v1.0.3 versus Hakuli.
 - **A** documented set of deviations from the reference formulation (Section 10) and a full reproducibility package.
 
@@ -69,13 +69,13 @@ Hakuli is a single-class `torch.optim.Optimizer` subclass with no dependencies b
 - **Per-parameter instances with per-layer weight updates.** One optimizer instance per low-rank parameter, stepped from `register_post_accumulate_grad_hook` so gradients are released eagerly. This pattern was introduced in the GaLore codebase and adopted by APOLLO and Q-GaLore; we follow it and cite it as such.
 - **Adam-style fallback.** Parameters whose smallest dimension does not exceed the rank, and all 1-D parameters, are updated with a bias-free Adam-style direction. A shared AdamW covers these parameters.
 - **Decoupled weight decay**, standard `state_dict` checkpointing, and closure support.
-- **Optional loss-memory reduction.** In our training runs we pair Hakuli with Cut Cross-Entropy (Wijmans et al., ICLR 2025), which computes the cross-entropy without materializing the full logit matrix.
+- **Optional loss-memory reduction.** In some memory-constrained training runs we pair Hakuli with Cut Cross-Entropy (Wijmans et al., ICLR 2025), which computes the cross-entropy without materializing the full logit matrix.
 
 Per projected parameter of shape $m \times n$, optimizer state is $2 r \max(m,n)$ bytes (bf16 projection) plus $8 r \min(m,n)$ bytes (two fp32 moments), versus $8mn$ bytes for AdamW fp32 moments. For a 7B transformer at $r=256$ this is approximately 2.4 GB in total.
 
 ## 5. Experimental Setup
 
-**Hardware and software.** Single NVIDIA RTX 3090 (24 GB), PyTorch 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1, SDPA attention, gradient checkpointing enabled, bf16 weights and gradients.
+**Hardware and software.** Single NVIDIA RTX 3090 (24 GiB), PyTorch 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1, SDPA attention, gradient checkpointing enabled, bf16 weights and gradients.
 
 **Model and data.** LLaMA-7B (`huggyllama/llama-7b`), trained on streaming C4 with packed sequences. We start from the pretrained weights (continual pretraining); the reported loss is therefore not comparable to from-scratch runs and serves only as a sanity check that training is healthy.
 
@@ -85,11 +85,11 @@ Per projected parameter of shape $m \times n$, optimizer state is $2 r \max(m,n)
 
 ## 6. Reproduction of APOLLO
 
-We attempted to reproduce the reported claims that are testable on a single 24 GB GPU. The table below summarizes the status.
+We attempted to reproduce the reported claims that are testable on a single 24 GiB GPU. The table below summarizes the status.
 
 | APOLLO claim | Status here | Evidence / reason |
 |---|---|---|
-| 7B pre-training within 11 GB (A100, batch 1) | partially addressed | Different batch size and GPU; we measure at batch 16 on 24 GB (Section 7). |
+| 7B pre-training within 11 GB (A100, batch 1) | partially addressed | Different batch size and GPU; we measure at batch 16 on 24 GiB (Section 7). |
 | Up to 3x throughput vs. Adam on 4xA100-80GB | not testable | Hardware unavailable. |
 | LLaMA-13B with naive DDP on A100-80GB | not testable | Hardware unavailable. |
 | 7B under 12 GB combined with quantization | not addressed | Hakuli v1.0 implements no quantization. |
@@ -106,17 +106,17 @@ We attempted to reproduce the reported claims that are testable on a single 24 G
 
 | Method | GPU | Batch | Rank | State precision | Peak VRAM | Source |
 |---|---|---|---|---|---|---|
-| AdamW | 24 GB class | 16 | — | fp32 | does not fit | GaLore paper |
+| AdamW | 24 GiB class | 16 | — | fp32 | does not fit | GaLore paper |
 | GaLore-8bit | RTX 4090 | 16 | 1024 | int8 | 22.8 GB | GaLore repo |
 | Q-GaLore | A6000 | 16 | 1024 | int4 | 15.26 GB | Q-GaLore repo |
-| APOLLO (official) | RTX 3090 | 16 | 512 | bf16/fp32 | 19.44 GB | this work |
-| **Hakuli** | RTX 3090 | 16 | 512 | bf16/fp32 | **20.51 GB** | this work |
+| APOLLO (official) | RTX 3090 | 16 | 512 | bf16/fp32 | 19.44 GiB | this work |
+| **Hakuli** | RTX 3090 | 16 | 512 | bf16/fp32 | **20.51 GiB** | this work |
 
-Published anchors were measured by their authors on different hardware, ranks and state precisions; they are included for context, not as controlled comparisons. The controlled comparison is the last two rows (same protocol, same GPU).
+Published anchors are quoted as reported by their authors on different hardware, ranks and state precisions; they are included for context, not as controlled comparisons. The controlled comparison is the last two rows (same protocol, same GPU); our values are GiB as returned by the CUDA allocator.
 
-The controlled rows show that both the official implementation and Hakuli enable LLaMA-7B full-parameter training at batch size 16, sequence length 256, within 24 GB, without quantization. Hakuli's measured throughput of 1026 tokens/s corresponds to about 4.0 s per optimizer step at 4096 tokens per step.
+The controlled rows show that both the official implementation and Hakuli enable LLaMA-7B full-parameter training at batch size 16, sequence length 256, within 24 GiB, without quantization. Hakuli's measured throughput of 1026 tokens/s corresponds to about 4.0 s per optimizer step at 4096 tokens per step.
 
-**Long-context fine-tuning.** In a separate internal run on the same GPU, a 7B model was full-parameter fine-tuned at sequence length 3072, batch size 4, rank 256, using Hakuli with Cut Cross-Entropy, peaking at 23.3 GB. This demonstrates that the memory profile holds at long context, where activation memory dominates.
+**Long-context fine-tuning.** In a separate internal run on the same GPU, a 7B model was full-parameter fine-tuned at sequence length 3072, batch size 4, rank 256, using Hakuli with Cut Cross-Entropy, peaking at 23.3 GiB. This shows that the configuration remains feasible at longer context, where activation memory dominates.
 
 ## 8. Comparison with Related Methods
 
@@ -131,7 +131,7 @@ Beyond the controlled comparison, we relate Hakuli to the broader family of memo
 
 This version does not include a systematic ablation study. We report the observations we have and mark the rest as planned work:
 
-- **Rank.** Rank 512 at batch size 16 fits 24 GB (20.5 GB measured); rank 256 was used in our long-context run (23.3 GB at sequence length 3072, where activations dominate). A rank sweep at fixed sequence length is planned.
+- **Rank.** Rank 512 at batch size 16 fits 24 GiB (20.5 GiB measured); rank 256 was used in our long-context run (23.3 GiB at sequence length 3072, where activations dominate). A rank sweep at fixed sequence length is planned.
 - **Projection interval.** `update_proj_gap`=200 was used in the controlled runs (resample boundaries every 200 steps), 500 in earlier internal runs; no systematic sensitivity analysis yet.
 - **Scale.** The heuristic $\lambda \approx \mathrm{hidden}/\mathrm{rank}$ was used in fine-tuning runs; no sweep yet.
 - **Precision.** bfloat16 projections were used in all runs; a comparison against fp32 projections is planned.
