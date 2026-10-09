@@ -14,8 +14,8 @@ from these projects is included in this distribution:
     D. Z. Pan, Z. Wang, J. Lee. MLSys 2025. arXiv:2412.05270
 
   - Fira: Can We Achieve Full-Rank Training of LLMs Under Low-rank
-    Constraint? X. Chen et al. NeurIPS 2025. arXiv:2409.12568
-    (norm-growth limiter concept)
+    Constraint? X. Chen, K. Feng, C. Li, X. Lai, X. Yue, Y. Yuan, G. Wang.
+    NeurIPS 2025. arXiv:2410.01623 (norm-growth limiter concept)
 
 The citations above are provided for academic attribution of the underlying
 research ideas only. Hakuli is not affiliated with, endorsed by, or derived

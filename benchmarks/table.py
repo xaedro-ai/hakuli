@@ -17,6 +17,7 @@ DISPLAY_NAMES = {
     "adamw": "AdamW",
     "galore": "GaLore",
     "qgalore": "Q-GaLore",
+    "apollo": "APOLLO (official)",
 }
 
 

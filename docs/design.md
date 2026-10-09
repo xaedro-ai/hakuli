@@ -156,5 +156,6 @@ from any of these projects is used.
 2. H. Zhu, Z. Zhang, W. Cong, X. Liu, S. Park, V. Chandra, B. Long, D. Z. Pan,
    Z. Wang, J. Lee. *APOLLO: SGD-like Memory, AdamW-level Performance.*
    MLSys 2025. arXiv:2412.05270
-3. X. Chen et al. *Fira: Can We Achieve Full-Rank Training of LLMs Under
-   Low-rank Constraint?* NeurIPS 2025. arXiv:2409.12568
+3. X. Chen, K. Feng, C. Li, X. Lai, X. Yue, Y. Yuan, G. Wang.
+   *Fira: Can We Achieve Full-Rank Training of LLMs Under
+   Low-rank Constraint?* NeurIPS 2025. arXiv:2410.01623

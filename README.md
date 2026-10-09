@@ -13,6 +13,12 @@ spikes of low-rank optimizers and makes it stable under small batches.
 Hakuli is developed by XAEDRO and is used in the company's internal LLM
 training pipeline.
 
+Hakuli is an independent, clean-room implementation of the APOLLO optimization
+method (Zhu et al., MLSys 2025). The algorithm follows the published
+specification; no source code from the reference implementation was used.
+Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
+[`NOTICE`](NOTICE) for academic attributions.
+
 [![CI](https://github.com/xaedro/hakuli/actions/workflows/ci.yml/badge.svg)](https://github.com/xaedro/hakuli/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](pyproject.toml)
@@ -134,6 +140,11 @@ for p in lowrank_params:
 
 ## Documentation
 
+- [`paper/main.tex`](paper/main.tex) and [`docs/paper.md`](docs/paper.md):
+  technical report: independent clean-room implementation and reproducibility
+  study of APOLLO.
+- [`benchmarks/RESULTS.md`](benchmarks/RESULTS.md): measured memory and
+  throughput results.
 - [`docs/design.md`](docs/design.md): algorithm, update rule, memory model.
 - [`docs/faq.md`](docs/faq.md): batch sizes, rank selection, integrations.
 

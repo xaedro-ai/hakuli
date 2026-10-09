@@ -33,10 +33,15 @@ pip install -r benchmarks/requirements.txt
 python benchmarks/run_benchmark.py --config benchmarks/configs/memory_llama7b_hakuli.json
 ```
 
-Config fields: `method` (`hakuli`, `adamw`, `galore`, `qgalore`), `model`
-(Hugging Face id, or `random:llama:<layers>:<hidden>` for smoke tests),
+Config fields: `method` (`hakuli`, `adamw`, `galore`, `qgalore`, `apollo`),
+`model` (Hugging Face id, or `random:llama:<layers>:<hidden>` for smoke tests),
 `dataset` (`c4`, `smoltalk`, `synthetic`), `batch_size`, `seq_len`, `lr`,
 `steps`, `warmup_steps`, `rank`, `scale`, `update_proj_gap`, `seed`, `output`.
+
+The `apollo` method runs the official `apollo-torch` package (CC-BY-NC,
+installed separately) strictly as an external black-box dependency for the
+comparison in the paper. It is not linked, copied, or redistributed by
+Hakuli.
 
 Measurements recorded per run: peak allocated and reserved VRAM, steady-state
 tokens/second, loss (per-step and averaged over the final window), wall time,

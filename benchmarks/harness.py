@@ -191,6 +191,21 @@ def make_optimizers(method: str, model, lr: float, rank: int, scale: float, gap:
                     ),
                 )
             )
+    elif method == "apollo":
+        from apollo_torch import APOLLOAdamW
+
+        for p in low_rank:
+            per_param.append(
+                (
+                    p,
+                    APOLLOAdamW(
+                        [{"params": [p], "rank": rank, "update_proj_gap": gap,
+                          "scale": scale, "scale_type": "channel",
+                          "proj": "random", "proj_type": "std"}],
+                        lr=lr,
+                    ),
+                )
+            )
     elif method == "qgalore":
         from q_galore_torch import QGaLoreAdamW8bit
 
@@ -291,6 +306,8 @@ def run(config: dict, repo_root: Path) -> RunResult:
     wall = time.perf_counter() - start
 
     tail = losses[-20:] if len(losses) >= 20 else losses
+    low_rank_methods = ("hakuli", "galore", "qgalore", "apollo")
+
     return RunResult(
         method=method,
         model=model_id,
@@ -300,9 +317,9 @@ def run(config: dict, repo_root: Path) -> RunResult:
         steps=steps,
         warmup_steps=warmup_steps,
         lr=lr,
-        rank=rank if method in ("hakuli", "galore", "qgalore") else None,
-        scale=scale if method in ("hakuli", "galore", "qgalore") else None,
-        update_proj_gap=gap if method in ("hakuli", "galore", "qgalore") else None,
+        rank=rank if method in low_rank_methods else None,
+        scale=scale if method in low_rank_methods else None,
+        update_proj_gap=gap if method in low_rank_methods else None,
         peak_vram_gb=round(peak, 2),
         reserved_vram_gb=round(reserved, 2),
         tokens_per_sec=round(steady_tokens / steady_time, 1) if steady_time > 0 else 0.0,
