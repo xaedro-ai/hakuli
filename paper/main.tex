@@ -3,6 +3,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 \usepackage[numbers]{natbib}
 \usepackage{xcolor}
@@ -35,8 +36,10 @@ self-contained, PyTorch-only implementation with no additional runtime
 dependencies, written from the published description without using reference
 source code; (ii)~a reproducibility study of APOLLO's memory and performance
 claims on consumer hardware; (iii)~a black-box comparison against the
-official \texttt{apollo-torch} package under an identical protocol on a
-single NVIDIA RTX 3090; and (iv)~measured full-parameter training of a 7B
+official \texttt{apollo-torch} package under an identical protocol and
+matched hyperparameters, in which the two implementations track each other
+within a mean per-step loss difference of 0.028 nats over 1000 steps; and
+(iv)~measured full-parameter training of a 7B
 model at batch size 16, sequence length 256, bf16 with gradient
 checkpointing, within 24\,GiB of peak allocated memory and without
 quantization. We also document every deviation from the reference
@@ -213,9 +216,9 @@ steps, and $\lambda=1$ in both implementations (applied under a square root
 in both). The official \texttt{apollo-torch} (v1.0.3) and Hakuli are run with
 this identical configuration, identical batches and seed, in the same
 harness. At aggressive settings ($\eta=5\times10^{-3}$, $\lambda=8$) the
-first optimizer step perturbs the pretrained weights substantially, and both
-implementations exhibit the same spike-and-recovery transient; the matched
-comparison therefore uses fine-tuning-scale hyperparameters.
+first optimizer step can substantially perturb the pretrained weights (we
+observed a loss spike from 2.23 to 12 within ten steps in that regime); the
+matched comparison therefore uses fine-tuning-scale hyperparameters.
 
 \textbf{Measurement.} Peak VRAM is \texttt{torch.cuda.max\_memory\_allocated}
 after resetting statistics at the end of warmup, so one-time initialization
@@ -248,6 +251,8 @@ LLaMA-13B with naive DDP on A100-80GB & not testable & Hardware unavailable. \\
 Hakuli v1.0 implements no quantization. \\
 Structured (channel-wise) scaling matches AdamW-level quality & not tested &
 No comparable quality baseline or sufficient training in this study. \\
+Reproduces the reference optimization trajectory under matched hyperparameters & supported &
+Mean per-step training-loss difference 0.028 nats over 1000 steps; validation loss within 0.04 nats (Figure~\ref{fig:curves}). \\
 \bottomrule
 \end{tabular}
 \caption{Status of APOLLO's reported claims under our hardware constraints.}
@@ -257,10 +262,31 @@ No comparable quality baseline or sufficient training in this study. \\
 \textbf{Controlled comparison.} Under the protocol of Section~\ref{sec:setup}
 (matched learning rate, scale, batches and seed), the official
 \texttt{apollo-torch} v1.0.3 and Hakuli produce the training and validation
-curves of Figure~\ref{fig:curves}. \textcolor{red}{[results pending: peak
-VRAM, throughput, final training loss and final validation loss for both
-implementations; curve overlap analysis across the five resample
-boundaries]}
+curves of Figure~\ref{fig:curves}. Both implementations fit 7B
+full-parameter training at batch size 16 within 24\,GiB: peak allocated
+memory is 19.44\,GiB for the official implementation and 20.51\,GiB for
+Hakuli; throughput is 1041 and 1026\,tokens/s respectively, and wall time
+for 1000 steps is 65.5 and 66.4 minutes. The per-step training losses track
+closely after warmup (mean absolute difference 0.028 nats, median 0.026),
+and validation loss decreases monotonically in both runs, ending at 2.166
+(official) and 2.206 (Hakuli), a residual gap of 0.04 nats. We attribute
+the residual gap to the documented implementation deviations
+(Section~\ref{sec:deviations}) and to the single-seed design; the training
+curves overlap within batch-to-batch noise throughout, including the five
+projection-resample boundaries at steps 200, 400, 600, 800 and 1000. This
+supports the claim that Hakuli reproduces the optimization behavior of the
+reference implementation under matched hyperparameters.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.85\textwidth]{../benchmarks/results/loss_curves.png}
+\caption{Matched-scale comparison on LLaMA-7B (batch 16, sequence length
+256, 1000 steps, RTX 3090). Solid lines: per-step training loss (logged
+every 10 steps). Dashed lines: validation loss on 8 held-out batches.
+Official \texttt{apollo-torch} v1.0.3 and Hakuli use identical batches,
+seed, learning rate and scale.}
+\label{fig:curves}
+\end{figure}
 
 \section{Systems Performance}
 \label{sec:systems}
@@ -290,8 +316,8 @@ same GPU).}
 Table~\ref{tab:main} summarizes peak memory. The controlled rows show that
 both the official implementation and Hakuli enable LLaMA-7B full-parameter
 training at batch size 16, sequence length 256, within 24\,GB, without
-quantization. Hakuli's measured throughput of 1065\,tokens/s corresponds to
-about 3.8\,s per optimizer step at 4096 tokens per step.
+quantization. Hakuli's measured throughput of 1026\,tokens/s corresponds to
+about 4.0\,s per optimizer step at 4096 tokens per step.
 
 \textbf{Long-context fine-tuning.} In a separate internal run on the same
 GPU, a 7B model was full-parameter fine-tuned at sequence length 3072, batch

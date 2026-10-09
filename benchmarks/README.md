@@ -12,7 +12,9 @@ Reproducible benchmarks for the Hakuli optimizer. Everything here is run by
   padding). Peak memory is reported in GiB (powers of 1024) as returned by
   `torch.cuda.max_memory_allocated`. Controlled runs use batch size 16,
   sequence length 256, 1000 optimizer steps, `update_proj_gap` 200 (five
-  projection resample cycles), learning rate 5e-3.
+  projection resample cycles), learning rate 1e-5, scale 1, identical
+  batches and seed for both implementations, and validation loss on 8
+  held-out batches every 100 steps.
 - **Published anchors**: measured by the respective authors on different
   hardware of the same 24 GiB class or larger. Values are quoted as reported
   (unit not normalized). They are cited for context; the protocol details

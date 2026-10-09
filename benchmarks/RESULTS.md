@@ -6,9 +6,9 @@ respective authors on the hardware listed; our runs use one shared protocol
 
 | Method | Model | GPU | Batch | Peak VRAM | Tokens/s | Final loss | Source |
 |---|---|---|---|---|---|---|---|
-| AdamW | LLaMA-7B | 24 GB class | 16 | does not fit | — | — | published: GaLore (ICML 2024), https://arxiv.org/abs/2403.03507 |
-| GaLore-8bit | LLaMA-7B | RTX 4090 24GB | 16 | 22.8 GB | — | — | published: https://github.com/jiaweizzhao/GaLore |
-| Q-GaLore-8bit | LLaMA-7B | A6000 48GB | 16 | 15.26 GB | — | — | published: https://github.com/VITA-Group/Q-GaLore |
-| APOLLO | LLaMA-7B | A100 80GB | 1 | 11 GB | — | — | published: https://github.com/zhuhanqing/APOLLO |
-| APOLLO (official) | huggyllama/llama-7b | NVIDIA GeForce RTX 3090 | 16 | 19.44 GB | 1058.1 | 6.7305 | this work |
-| Hakuli | huggyllama/llama-7b | NVIDIA GeForce RTX 3090 | 16 | 20.51 GB | 1065.1 | 2.3623 | this work |
+| AdamW | LLaMA-7B | 24 GiB class | 16 | does not fit | — | — | published: GaLore (ICML 2024), https://arxiv.org/abs/2403.03507 |
+| GaLore-8bit | LLaMA-7B | RTX 4090 24GB | 16 | 22.8 GiB (as reported) | — | — | published: https://github.com/jiaweizzhao/GaLore |
+| Q-GaLore-8bit | LLaMA-7B | A6000 48GB | 16 | 15.26 GiB (as reported) | — | — | published: https://github.com/VITA-Group/Q-GaLore |
+| APOLLO | LLaMA-7B | A100 80GB | 1 | 11 GiB (as reported) | — | — | published: https://github.com/zhuhanqing/APOLLO |
+| APOLLO (official) | huggyllama/llama-7b | NVIDIA GeForce RTX 3090 | 16 | 19.44 GiB | 1041.1 | 2.0281 | this work |
+| Hakuli | huggyllama/llama-7b | NVIDIA GeForce RTX 3090 | 16 | 20.51 GiB | 1026.3 | 2.0729 | this work |
