@@ -9,7 +9,10 @@ description = "Hakuli: memory-efficient optimizer for full-parameter LLM trainin
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "Apache-2.0" }
-authors = [{ name = "XAEDRO" }]
+authors = [
+    { name = "Evaristo Cordoba Ancajima", email = "research@xaedro.com" },
+    { name = "XAEDRO" },
+]
 keywords = [
     "llm",
     "optimizer",

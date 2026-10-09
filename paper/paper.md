@@ -2,7 +2,9 @@
 
 *Memory-Efficient LLM Training on a Single Consumer GPU*
 
-**XAEDRO** — October 2026
+**Evaristo Cordoba Ancajima** — XAEDRO · research@xaedro.com
+
+October 2026
 
 ---
 
