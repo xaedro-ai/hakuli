@@ -1,0 +1,15 @@
+{
+  "method": "qgalore",
+  "model": "Qwen/Qwen2.5-7B",
+  "dataset": "smoltalk",
+  "batch_size": 4,
+  "seq_len": 2048,
+  "steps": 2000,
+  "warmup_steps": 20,
+  "lr": 1e-5,
+  "rank": 256,
+  "scale": 0.25,
+  "update_proj_gap": 200,
+  "seed": 0,
+  "output": "benchmarks/results/sft_qwen7b_qgalore.json"
+}

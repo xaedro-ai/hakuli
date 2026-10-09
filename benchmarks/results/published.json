@@ -1,0 +1,41 @@
+{
+  "notes": "Published peak-memory anchors for LLaMA-7B training on 24 GB-class GPUs, as reported by the respective authors. Protocols differ per source; see benchmarks/README.md. AdamW fp32 optimizer states alone are about 61 GB for a 7B model, so full AdamW training does not fit on 24 GB.",
+  "anchors": [
+    {
+      "method": "AdamW",
+      "model": "LLaMA-7B",
+      "gpu": "24 GB class",
+      "batch": 16,
+      "peak_vram_gb": null,
+      "protocol": "full-parameter training; does not fit in 24 GB",
+      "source": "GaLore (ICML 2024), https://arxiv.org/abs/2403.03507"
+    },
+    {
+      "method": "GaLore-8bit",
+      "model": "LLaMA-7B",
+      "gpu": "RTX 4090 24GB",
+      "batch": 16,
+      "peak_vram_gb": 22.8,
+      "protocol": "C4 pretraining, per-layer updates, activation checkpointing",
+      "source": "https://github.com/jiaweizzhao/GaLore"
+    },
+    {
+      "method": "Q-GaLore-8bit",
+      "model": "LLaMA-7B",
+      "gpu": "A6000 48GB",
+      "batch": 16,
+      "peak_vram_gb": 15.26,
+      "protocol": "C4 pretraining, per-layer updates, activation checkpointing, INT4 projection",
+      "source": "https://github.com/VITA-Group/Q-GaLore"
+    },
+    {
+      "method": "APOLLO",
+      "model": "LLaMA-7B",
+      "gpu": "A100 80GB",
+      "batch": 1,
+      "peak_vram_gb": 11.0,
+      "protocol": "C4 pretraining, single batch",
+      "source": "https://github.com/zhuhanqing/APOLLO"
+    }
+  ]
+}
