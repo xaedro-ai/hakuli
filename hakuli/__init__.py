@@ -1,4 +1,7 @@
-"""Hakuli: memory-efficient optimizer for full-parameter LLM training."""
+"""Hakuli: memory-efficient optimizer for full-parameter LLM training.
+
+Developed by XAEDRO.
+"""
 
 from hakuli.optim import Hakuli
 

@@ -1,14 +1,17 @@
 # Hakuli
 
-**Memory-efficient optimizer for full-parameter LLM training — no SVD, AdamW-level quality, SGD-like optimizer state.**
+**Memory-efficient optimizer for full-parameter LLM training: no SVD, AdamW-level quality, SGD-like optimizer state.**
 
-Hakuli is a production-grade optimizer for training and fine-tuning large language
-models on a single consumer GPU. It performs full-parameter (not adapter-based)
-updates while keeping optimizer memory close to SGD, by approximating
-channel-wise gradient scaling with an auxiliary low-rank state built from pure
-random projections. Unlike GaLore-style methods, Hakuli performs **no SVD** —
-not even periodically — which removes the dominant latency spikes of low-rank
-optimizers and makes it stable under small batches.
+Hakuli is a memory-efficient optimizer for training and fine-tuning large
+language models on a single consumer GPU. It performs full-parameter (not
+adapter-based) updates while keeping optimizer memory close to SGD, by
+approximating channel-wise gradient scaling with an auxiliary low-rank state
+built from pure random projections. Unlike GaLore-style methods, Hakuli
+performs **no SVD**, not even periodically, which removes the dominant latency
+spikes of low-rank optimizers and makes it stable under small batches.
+
+Hakuli is developed by XAEDRO and is used in the company's internal LLM
+training pipeline.
 
 [![CI](https://github.com/xaedro/hakuli/actions/workflows/ci.yml/badge.svg)](https://github.com/xaedro/hakuli/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
@@ -21,10 +24,10 @@ optimizers and makes it stable under small batches.
 
 | | AdamW | GaLore | **Hakuli** |
 |---|---|---|---|
-| Full-parameter training | ✅ | ✅ | ✅ |
-| Optimizer memory (7B, rank 256) | ~56 GB | ~9 GB | **~2.4 GB** |
-| Periodic SVD | — | ❌ every `gap` steps | ✅ **none** |
-| Stable at small batch sizes | ✅ | ⚠️ SVD subspace noise | ✅ random projection |
+| Full-parameter training | Yes | Yes | Yes |
+| Optimizer memory (7B, rank 256) | ~61 GB | ~9 GB | **~2.4 GB** |
+| Periodic SVD | None | Every `gap` steps | **None** |
+| Stable at small batch sizes | Yes | Subspace noise | Yes |
 | Dependency footprint | torch | galore-torch | **torch only** |
 
 - **No SVD anywhere.** Projection matrices are Gaussian random and resampled on
@@ -35,7 +38,7 @@ optimizers and makes it stable under small batches.
 - **Norm-growth limiter.** A relative update-norm limiter (`nl_threshold`,
   default `1.01`) converts abrupt gradient spikes into smooth increases,
   which prevents the loss spikes known from low-rank scaling methods.
-- **Tiny API surface.** A single `torch.optim.Optimizer` subclass. Works with
+- **Minimal API.** A single `torch.optim.Optimizer` subclass. Works with
   plain PyTorch training loops, gradient accumulation, and per-layer setups.
 
 ## Installation
@@ -121,18 +124,18 @@ for p in lowrank_params:
 
 - Apply Hakuli to attention and MLP projection matrices plus embeddings; keep
   normalization layers and biases in a conventional optimizer.
-- `rank` 256 with `scale` ~14 (`hidden_size / rank` rule of thumb) is a robust
+- `rank` 256 with `scale` ~14 (`hidden_size / rank` rule of thumb) is a good
   starting point for 7B-scale fine-tuning.
 - With eager gradient release (per-parameter hooks), peak memory is dominated
-  by activations, not optimizer state — combine with activation checkpointing
+  by activations, not optimizer state; combine with activation checkpointing
   for long-context training.
 - Hakuli is orthogonal to precision schemes: it operates on whatever gradient
   dtype your model produces (`bf16` recommended).
 
 ## Documentation
 
-- [`docs/design.md`](docs/design.md) — algorithm, update rule, memory model.
-- [`docs/faq.md`](docs/faq.md) — batch sizes, rank selection, integrations.
+- [`docs/design.md`](docs/design.md): algorithm, update rule, memory model.
+- [`docs/faq.md`](docs/faq.md): batch sizes, rank selection, integrations.
 
 ## Development
 
@@ -169,7 +172,7 @@ See [`CITATION.cff`](CITATION.cff) for machine-readable metadata.
 
 ## License
 
-Apache License 2.0 — see [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
+Apache License 2.0. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
 
 "Hakuli" and "XAEDRO" are trademarks of XAEDRO. Hakuli is an independent
 clean-room implementation; see the NOTICE file for academic attributions.

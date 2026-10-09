@@ -1,4 +1,4 @@
-# Hakuli — Design Notes
+# Hakuli Design Notes
 
 This document describes the algorithm implemented by `hakuli.optim.Hakuli`,
 its memory model, and how it relates to prior academic work.
@@ -10,7 +10,7 @@ algorithmic descriptions. See the repository `NOTICE` file for attributions.
 
 Full-parameter fine-tuning of modern language models is dominated by optimizer
 memory: AdamW keeps two fp32 moments per trainable parameter, which is roughly
-8 bytes per parameter — about 61 GB for a 7.6B-parameter model. Low-rank
+8 bytes per parameter, about 61 GB for a 7.6B-parameter model. Low-rank
 optimizers reduce this by tracking moments in a compressed subspace, but
 SVD-based projection methods (GaLore) pay a heavy periodic decomposition cost
 and become unstable at small batch sizes, which are exactly the regimes where
@@ -57,7 +57,7 @@ tensors on a conventional update path.
 ## 3. Why random projections work
 
 The channel-wise scale `s_t` only needs to approximate the geometry of the
-Adam-normalized direction, not the direction itself — the update always
+Adam-normalized direction, not the direction itself; the update always
 multiplies the *full* gradient `G_t`. By Johnson–Lindenstrauss-type arguments,
 a Gaussian random projection preserves the norms of interest up to small
 distortion once the rank is in the low hundreds. Because both the numerator
@@ -97,7 +97,7 @@ Per projected parameter of shape `m×n` (`r = rank`):
 
 Total: `2·r·max(m,n) + 8·r·min(m,n)` bytes versus `8·m·n` for AdamW.
 
-Worked example — Qwen2.5-7B, `r = 256`:
+Worked example: Qwen2.5-7B, `r = 256`:
 
 | Component | Per unit | Count | Total |
 |---|---|---|---|
@@ -125,7 +125,7 @@ from any of these projects is used.
 
 ## 7. Hyperparameter guidance
 
-- `rank`: 128–512 covers most cases. `rank = 256` is a robust default for
+- `rank`: 128–512 covers most cases. `rank = 256` is a good default for
   1B–7B models. Lower ranks further reduce memory with mild quality impact.
 - `scale`: compensates for the variance of the channel estimate. A useful
   heuristic is `scale ≈ hidden_size / rank`; 7B fine-tuning typically lands

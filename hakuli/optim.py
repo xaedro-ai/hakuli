@@ -1,9 +1,9 @@
 """Core Hakuli optimizer implementation.
 
-Hakuli is an independent, clean-room implementation written from the
-published algorithmic description of low-rank-moment optimizers. No source
-code from any reference implementation is included. See the NOTICE file at
-the repository root for academic attributions.
+Hakuli is an independent, clean-room implementation developed by XAEDRO,
+written from the published algorithmic description of low-rank-moment
+optimizers. No source code from any reference implementation is included.
+See the NOTICE file at the repository root for academic attributions.
 """
 
 from __future__ import annotations

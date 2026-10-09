@@ -13,7 +13,7 @@ stable at batch size 1.
 Neither exactly. The moment estimates and the update shape are Adam-like, but
 the step is applied to the full gradient with a scale-corrected SGD-style
 learning rate (`η_t = lr·sqrt(1-β2^t)/(1-β1^t)`), following the APOLLO
-formulation. In practice you tune it like AdamW.
+formulation. You tune it like AdamW.
 
 ### What batch sizes are supported?
 
@@ -49,16 +49,16 @@ bfloat16 projection values are preserved exactly.
 
 ### Can I use it with Hugging Face Trainer?
 
-Yes — pass a Hakuli instance via the `optimizers=(optimizer, scheduler)`
+Yes. Pass a Hakuli instance via the `optimizers=(optimizer, scheduler)`
 argument. Build it over `model.parameters()`; the fallback path handles non-2-D
 parameters.
 
-### Why "no SVD" — is that not less accurate?
+### Why "no SVD"? Is that not less accurate?
 
 The channel scale only needs norm estimates, and both sides of the ratio are
 computed in the same random subspace, so first-order distortion cancels.
-Periodic resampling avoids basis overfitting. Accuracy in practice matches
-SVD-based projection while being cheaper and more stable.
+Periodic resampling avoids basis overfitting. Accuracy matches SVD-based
+projection in our training runs while being cheaper and more stable.
 
 ### Is sparse gradient training supported?
 
