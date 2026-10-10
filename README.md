@@ -140,8 +140,10 @@ for p in lowrank_params:
 
 ## Documentation
 
-- [`paper/`](paper/): technical report — LaTeX source (`main.tex`) and
-  Markdown version (`paper.md`).
+- [`paper/hakuli-technical-report.pdf`](paper/hakuli-technical-report.pdf):
+  compiled technical report.
+- [`paper/`](paper/): report sources — LaTeX (`main.tex`, `references.bib`)
+  and Markdown (`paper.md`).
 - [`benchmarks/RESULTS.md`](benchmarks/RESULTS.md): measured memory and
   throughput results.
 - [`docs/design.md`](docs/design.md): algorithm, update rule, memory model.

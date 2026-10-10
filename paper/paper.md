@@ -6,6 +6,8 @@
 
 October 2026
 
+*Compiled PDF: [hakuli-technical-report.pdf](hakuli-technical-report.pdf)*
+
 ---
 
 ## Abstract
