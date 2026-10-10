@@ -127,6 +127,7 @@ Beyond the controlled comparison, we relate Hakuli to the broader family of memo
 - **AdamW**: standard full-rank baseline, but optimizer state alone (~54 GB for LLaMA-7B) exceeds consumer GPUs.
 - **GaLore**: SVD-based projection; periodic decomposition stalls and degraded stability at small batch sizes are well documented in later work.
 - **Q-GaLore**: adds INT4 projection and quantization, reaching 15.26 GB for 7B at batch 16, at the cost of a quantized state.
+- **FLoRA** (Hao et al., ICML 2024): compresses the gradient and optimizer state themselves by random projection and updates weights from the decompressed gradient (a compress-decompress update). APOLLO and Hakuli instead derive a channel-wise scaling factor from the projected state and apply it to the full, uncompressed gradient.
 - **SCALE** (Glentis et al., ICML 2026): a 2026 minimalist design (column-wise gradient normalization plus last-layer momentum) reporting better perplexity and memory than APOLLO for 7B. We cite it as the current state of the art in this line and as future comparison work; it was not benchmarked here.
 
 ## 9. Ablations
@@ -174,7 +175,8 @@ Hakuli is released under the Apache License 2.0, including a patent grant from i
 2. J. Zhao, Z. Zhang, B. Chen, Z. Wang, A. Anandkumar, Y. Tian. *GaLore: Memory-Efficient LLM Training by Gradient Low-Rank Projection.* ICML 2024. arXiv:2403.03507.
 3. X. Chen, K. Feng, C. Li, X. Lai, X. Yue, Y. Yuan, G. Wang. *Fira: Can We Achieve Full-rank Training of LLMs Under Low-rank Constraint?* NeurIPS 2025. arXiv:2410.01623.
 4. Z. Zhang, A. Jaiswal, L. Yin, S. Liu, J. Zhao, Y. Tian, Z. Wang. *Q-GaLore: Quantized GaLore with INT4 Projection and Layer-Adaptive Low-Rank Gradients.* arXiv:2407.08296, 2024.
-5. A. Glentis, J. Li, A. Han, M. Hong. *Memory-Efficient LLM Pretraining via Minimalist Optimizer Design.* ICML 2026, PMLR 306:35197–35226.
-6. E. Wijmans, B. Huval, A. Hertzberg, V. Koltun, P. Krähenbühl. *Cut Your Losses in Large-Vocabulary Language Models.* ICLR 2025 (Oral). arXiv:2411.09009.
-7. I. Loshchilov, F. Hutter. *Decoupled Weight Decay Regularization.* ICLR 2019.
-8. C. Raffel, N. Shazeer, A. Roberts, K. Lee, S. Narang, M. Matena, Y. Zhou, W. Li, P. J. Liu. *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer.* JMLR 21(140), 2020.
+5. Y. Hao, Y. Cao, L. Mou. *Flora: Low-Rank Adapters Are Secretly Gradient Compressors.* ICML 2024. arXiv:2402.03293.
+6. A. Glentis, J. Li, A. Han, M. Hong. *Memory-Efficient LLM Pretraining via Minimalist Optimizer Design.* ICML 2026, PMLR 306:35197–35226.
+7. E. Wijmans, B. Huval, A. Hertzberg, V. Koltun, P. Krähenbühl. *Cut Your Losses in Large-Vocabulary Language Models.* ICLR 2025 (Oral). arXiv:2411.09009.
+8. I. Loshchilov, F. Hutter. *Decoupled Weight Decay Regularization.* ICLR 2019.
+9. C. Raffel, N. Shazeer, A. Roberts, K. Lee, S. Narang, M. Matena, Y. Zhou, W. Li, P. J. Liu. *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer.* JMLR 21(140), 2020.

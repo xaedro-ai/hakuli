@@ -345,6 +345,11 @@ memory-efficient optimizers:
   work \citep{zhu2025apollo}.
   \item \textbf{Q-GaLore}: adds INT4 projection and quantization, reaching
   15.26\,GB for 7B at batch 16, at the cost of a quantized state.
+  \item \textbf{FLoRA} \citep{hao2024flora}: compresses the gradient and
+  optimizer state themselves by random projection and updates weights from the
+  decompressed gradient (a compress-decompress update). APOLLO and Hakuli
+  instead derive a channel-wise scaling factor from the projected state and
+  apply it to the full, uncompressed gradient.
   \item \textbf{SCALE} \citep{glentis2026scale}: a 2026 minimalist design
   (column-wise gradient normalization plus last-layer momentum) reporting
   better perplexity and memory than APOLLO for 7B. We cite it as the current
