@@ -42,8 +42,8 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
   the update is scaled channel-wise from that state and applied to the full
   gradient. The weights remain full-rank.
 - **Norm-growth limiter.** A relative update-norm limiter (`nl_threshold`,
-  default `1.01`) converts abrupt gradient spikes into smooth increases,
-  which prevents the loss spikes known from low-rank scaling methods.
+  default `1.01`) caps update-norm growth between consecutive steps,
+  converting abrupt gradient spikes into smooth increases.
 - **Minimal API.** A single `torch.optim.Optimizer` subclass. Works with
   plain PyTorch training loops, gradient accumulation, and per-layer setups.
 
@@ -124,7 +124,7 @@ for p in lowrank_params:
 | Argument | Default | Description |
 |---|---|---|
 | `lr` | `1e-5` | Learning rate. The APOLLO-style scale-corrected step size is applied internally; no external scheduler is required. |
-| `rank` | `256` | Rank of the auxiliary random subspace. 256 is a good default for 1B–7B models; lower ranks remain competitive. |
+| `rank` | `256` | Rank of the auxiliary random subspace. 256 is a good default for 1B–7B models. |
 | `scale` | `1.0` | Global multiplier on the structured update (applied under a square root). Tune together with `rank`. |
 | `scale_type` | `"channel"` | `"channel"` (APOLLO-style) or `"tensor"` (extreme low-memory). |
 | `update_proj_gap` | `200` | Steps between random-projection resamples. |
