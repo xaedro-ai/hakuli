@@ -20,6 +20,7 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 [`NOTICE`](NOTICE) for academic attributions.
 
 [![CI](https://github.com/xaedro-ai/hakuli/actions/workflows/ci.yml/badge.svg)](https://github.com/xaedro-ai/hakuli/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/hakuli.svg)](https://pypi.org/project/hakuli/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](pyproject.toml)
 [![PyTorch](https://img.shields.io/badge/pytorch-2.1%2B-ee4c2c.svg)](https://pytorch.org)
@@ -48,7 +49,13 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 
 ## Installation
 
-Hakuli is dependency-light (PyTorch only). Until the first PyPI release:
+Hakuli is dependency-light (PyTorch only). Install from PyPI:
+
+```bash
+pip install hakuli
+```
+
+Or from source:
 
 ```bash
 git clone https://github.com/xaedro-ai/hakuli.git
