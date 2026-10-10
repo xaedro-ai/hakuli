@@ -14,7 +14,7 @@ authors:
     affiliation: "XAEDRO"
     email: "research@xaedro.com"
 version: 1.0.0
-date-released: "2026-10-09"
+date-released: "2026-10-10"
 license: Apache-2.0
 repository-code: "https://github.com/xaedro-ai/hakuli"
 keywords:
