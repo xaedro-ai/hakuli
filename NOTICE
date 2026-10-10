@@ -17,6 +17,10 @@ from these projects is included in this distribution:
     Constraint? X. Chen, K. Feng, C. Li, X. Lai, X. Yue, Y. Yuan, G. Wang.
     NeurIPS 2025. arXiv:2410.01623 (norm-growth limiter concept)
 
+  - Q-GaLore: Quantized GaLore with INT4 Projection and Layer-Adaptive
+    Low-Rank Gradients. Z. Zhang, A. Jaiswal, L. Yin, S. Liu, J. Zhao,
+    Y. Tian, Z. Wang. arXiv:2407.08296, 2024
+
 The citations above are provided for academic attribution of the underlying
 research ideas only. Hakuli is not affiliated with, endorsed by, or derived
 from the source code of any of these projects. Hakuli was implemented from

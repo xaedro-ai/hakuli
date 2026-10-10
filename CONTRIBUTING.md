@@ -40,6 +40,18 @@ should include a regression test.
    algorithmic changes, include a short note on numerical impact (memory,
    step behaviour, or test evidence).
 
+## Provenance and clean-room policy
+
+Hakuli is an independent, clean-room implementation; see `PROVENANCE.md`.
+
+- Do not copy, adapt, or translate code from the official APOLLO
+  implementation (`apollo-torch`) or from any implementation whose license is
+  incompatible with Apache-2.0.
+- Algorithmic contributions must identify the published specification or
+  source they implement and must be written independently from that
+  specification.
+- Changes that cannot satisfy these requirements will not be merged.
+
 ## Reporting issues
 
 Use the repository issue tracker. For security-sensitive reports, follow

@@ -2,10 +2,11 @@ cff-version: 1.2.0
 message: "If you use Hakuli in your research, please cite it as below."
 title: "Hakuli: Memory-Efficient Full-Parameter LLM Training without SVD"
 abstract: >-
-  Hakuli is a PyTorch optimizer for full-parameter training and fine-tuning of
-  large language models with SGD-like optimizer memory and AdamW-level quality.
-  It approximates channel-wise gradient scaling from a low-rank Gaussian random
-  projection and performs no singular value decomposition at any step.
+  Hakuli is a PyTorch optimizer implementing the APOLLO method for
+  full-parameter training and fine-tuning of large language models with
+  SGD-like optimizer memory. It approximates channel-wise gradient scaling
+  from a low-rank Gaussian random projection and performs no singular value
+  decomposition at any step.
 type: software
 authors:
   - family-names: "Cordoba Ancajima"

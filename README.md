@@ -1,6 +1,6 @@
 # Hakuli
 
-**Memory-efficient optimizer for full-parameter LLM training: no SVD, AdamW-level quality, SGD-like optimizer state.**
+**Memory-efficient optimizer for full-parameter LLM training: no SVD, low-rank optimizer state, PyTorch-only.**
 
 Hakuli is a memory-efficient optimizer for training and fine-tuning large
 language models on a single consumer GPU. It performs full-parameter (not
@@ -33,7 +33,6 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 | Full-parameter training | Yes | Yes | Yes |
 | Optimizer memory (7B, rank 256) | ≈54 GB (LLaMA-7B) | ~9 GB | **~2.4 GB** |
 | Periodic SVD | None | Every `gap` steps | **None** |
-| Stable at small batch sizes | Yes | Subspace noise | Yes |
 | Dependency footprint | torch | galore-torch | **torch only** |
 
 - **No SVD anywhere.** Projection matrices are Gaussian random and resampled on
@@ -68,8 +67,9 @@ from hakuli import Hakuli
 
 model = nn.Sequential(nn.Linear(512, 2048), nn.GELU(), nn.Linear(2048, 512)).cuda()
 
-# Route 2-D transformer weights to Hakuli; keep 1-D parameters in any
-# standard optimizer (AdamW, bitsandbytes 8-bit Adam, ...).
+# Hakuli routes 2-D weights through the low-rank path; parameters whose
+# smallest dimension is not larger than `rank` (including 1-D parameters)
+# automatically use its Adam-style fallback.
 lowrank, regular = [], []
 for name, p in model.named_parameters():
     (lowrank if p.ndim == 2 else regular).append(p)
@@ -116,7 +116,7 @@ for p in lowrank_params:
 
 | Argument | Default | Description |
 |---|---|---|
-| `lr` | `1e-5` | Learning rate (AdamW-style schedule applies). |
+| `lr` | `1e-5` | Learning rate. The APOLLO-style scale-corrected step size is applied internally; no external scheduler is required. |
 | `rank` | `256` | Rank of the auxiliary random subspace. 256 is a good default for 1B–7B models; lower ranks remain competitive. |
 | `scale` | `1.0` | Global multiplier on the structured update (applied under a square root). Tune together with `rank`. |
 | `scale_type` | `"channel"` | `"channel"` (APOLLO-style) or `"tensor"` (extreme low-memory). |

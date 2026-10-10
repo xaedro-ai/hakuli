@@ -26,7 +26,8 @@ Hakuli.
    redistributed by Hakuli. It is only imported by the benchmark harness at
    run time for black-box measurements.
 2. All academic attributions (APOLLO, GaLore, Fira, Q-GaLore) are recorded in
-   `NOTICE`, `CITATION.cff`, and the paper references.
+   `NOTICE` and in the paper references; `CITATION.cff` covers the software
+   itself.
 3. No algorithmic-novelty claims are made for the update rule; Hakuli is
    presented as an independent implementation of the APOLLO method.
 
@@ -40,6 +41,6 @@ Hakuli.
 
 The Apache-2.0 license of Hakuli grants no rights to third-party patents and
 covers only the rights held by Hakuli's contributors over their own
-contributions. A formal freedom-to-operate analysis is out of scope of this
-record; no third-party patents related to the method were identified during
-preparation.
+contributions. A formal freedom-to-operate or patent-clearance analysis is
+outside the scope of this record; no representation is made regarding
+third-party patent rights.
