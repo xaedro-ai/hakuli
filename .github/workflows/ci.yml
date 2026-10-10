@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   pull_request:
 
 jobs:
@@ -11,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,3 +25,52 @@ jobs:
           pip install -e ".[dev]"
       - name: Run tests
         run: pytest -q
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build tooling
+        run: |
+          python -m pip install --upgrade pip build twine
+      - name: Build sdist and wheel
+        run: python -m build
+      - name: Check package metadata
+        run: twine check dist/*
+      - name: Verify artifacts
+        run: |
+          python - <<'EOF'
+          import glob
+          import tarfile
+          import zipfile
+
+          sdist = glob.glob("dist/*.tar.gz")[0]
+          wheel = glob.glob("dist/*.whl")[0]
+
+          with tarfile.open(sdist) as tar:
+              names = tar.getnames()
+          for required in ("LICENSE", "NOTICE", "README.md", "pyproject.toml"):
+              assert any(n.endswith(required) for n in names), f"sdist missing {required}"
+
+          with zipfile.ZipFile(wheel) as zf:
+              names = zf.namelist()
+          for required in ("hakuli/__init__.py", "hakuli/optim.py"):
+              assert required in names, f"wheel missing {required}"
+
+          print("sdist OK:", sdist)
+          print("wheel OK:", wheel)
+          EOF
+      - name: Install wheel and import
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install dist/*.whl
+          python -c "import hakuli; from hakuli import Hakuli; print('hakuli', hakuli.__version__, 'OK')"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
