@@ -158,12 +158,12 @@ The repository contains the optimizer, a test suite (unit and integration tests,
 
 ```bash
 git clone https://github.com/xaedro-ai/hakuli
-pip install -r benchmarks/requirements.txt
+pip install -r benchmarks/requirements-repro.txt
 python benchmarks/run_benchmark.py --config benchmarks/configs/memory_llama7b_hakuli.json
 python benchmarks/table.py
 ```
 
-The official comparison additionally requires `pip install apollo-torch` (v1.0.3) and the config `memory_llama7b_apollo.json`. Environment: Docker container based on NVIDIA NGC PyTorch 24.10 (`benchmarks/Dockerfile`), Python 3.11. Initial public commit: `a8ef673`.
+The official comparison additionally requires `pip install apollo-torch` (v1.0.3) and the config `memory_llama7b_apollo.json`. The file `benchmarks/requirements-repro.txt` pins the exact software versions of the reported experiment; the Docker image in `benchmarks/Dockerfile` reproduces that environment (Python 3.11, PyTorch 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1). Initial public commit: `a8ef673`.
 
 ## 12. License and Provenance
 

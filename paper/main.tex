@@ -414,7 +414,7 @@ Reproduction:
 
 \begin{verbatim}
 git clone https://github.com/xaedro-ai/hakuli
-pip install -r benchmarks/requirements.txt
+pip install -r benchmarks/requirements-repro.txt
 python benchmarks/run_benchmark.py \
   --config benchmarks/configs/memory_llama7b_hakuli.json
 python benchmarks/table.py
@@ -422,8 +422,11 @@ python benchmarks/table.py
 
 The official comparison additionally requires \texttt{pip install
 apollo-torch} (v1.0.3) and the config
-\texttt{memory\_llama7b\_apollo.json}. Environment: Docker container based on
-NVIDIA NGC PyTorch 24.10 (\texttt{benchmarks/Dockerfile}), Python 3.11.
+\texttt{memory\_llama7b\_apollo.json}. The file
+\texttt{benchmarks/requirements-repro.txt} pins the exact software versions
+of the reported experiment; the Docker image in
+\texttt{benchmarks/Dockerfile} reproduces that environment (Python 3.11,
+PyTorch 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1).
 Initial public commit:
 \texttt{a8ef673}.
 \section{License and Provenance}

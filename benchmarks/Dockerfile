@@ -1,8 +1,9 @@
-FROM nvcr.io/nvidia/pytorch:24.10-py3
+FROM python:3.11-slim
 
-# The base image provides the torch==2.5.1+cu124 build used in the report.
-# The frozen dependency snapshot of the reported experiment is installed from
-# benchmarks/requirements-repro.txt (see also benchmarks/README.md).
+# Reproduces the software environment of the reported experiment:
+# Python 3.11, PyTorch 2.5.1+cu124 (the default PyPI CUDA wheel for 2.5.1),
+# Transformers 4.57.6, Datasets 5.0.1. The frozen versions are pinned in
+# benchmarks/requirements-repro.txt.
 
 WORKDIR /workspace
 
