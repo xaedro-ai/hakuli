@@ -21,4 +21,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unit and integration test suite.
 - End-to-end example (`examples/train_tiny.py`).
 - Documentation: design notes, FAQ, contribution and security policies.
-- CI workflow running the test suite on Python 3.9/3.11/3.12.
+- CI workflow running the test suite on Python 3.9-3.12 (3.9, 3.10, 3.11, 3.12).

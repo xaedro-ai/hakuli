@@ -12,6 +12,8 @@ updates:
 
   - package-ecosystem: "pip"
     directory: "/benchmarks"
+    exclude-paths:
+      - "requirements-repro.txt"
     schedule:
       interval: "weekly"
     groups:

@@ -6,9 +6,9 @@ Hakuli is a memory-efficient optimizer for training and fine-tuning large
 language models on a single consumer GPU. It performs full-parameter (not
 adapter-based) updates while keeping optimizer memory close to SGD, by
 approximating channel-wise gradient scaling with an auxiliary low-rank state
-built from pure random projections. Unlike GaLore-style methods, Hakuli
-performs **no SVD**, not even periodically, which removes the dominant latency
-spikes of low-rank optimizers and makes it stable under small batches.
+built from pure random projections. Hakuli performs **no SVD**, not even
+periodically, which removes the periodic SVD stalls of GaLore-style
+projection methods.
 
 Hakuli is developed by XAEDRO and is used in the company's internal LLM
 training pipeline.
