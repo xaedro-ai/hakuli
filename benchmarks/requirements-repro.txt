@@ -8,9 +8,9 @@
 # from Dependabot updates in .github/dependabot.yml. Current, unpinned harness
 # dependencies live in requirements.txt.
 
-torch==2.5.1
-transformers==4.57.6
-datasets==5.0.1
+torch==2.14.1
+transformers==5.19.0
+datasets==5.1.0
 galore-torch==1.0
 q-galore-torch==1.0
 apollo-torch==1.0.3
