@@ -10,9 +10,9 @@
 #
 # The reported run used the CUDA 12.4 build of PyTorch 2.5.1.
 --extra-index-url https://download.pytorch.org/whl/cu124
-torch==2.5.1+cu124
-transformers==4.57.6
-datasets==5.0.1
+torch==2.14.1
+transformers==5.19.0
+datasets==5.1.0
 galore-torch==1.0
 q-galore-torch==1.0
 apollo-torch==1.0.3
