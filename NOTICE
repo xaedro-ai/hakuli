@@ -1,0 +1,30 @@
+Hakuli
+Copyright 2026 XAEDRO
+
+This product is an independent, clean-room implementation of optimization
+concepts described in the following academic publications. No source code
+from these projects is included in this distribution:
+
+  - GaLore: Memory-Efficient LLM Training by Gradient Low-Rank Projection.
+    J. Zhao, Z. Zhang, B. Chen, Z. Wang, A. Anandkumar, Y. Tian.
+    ICML 2024. arXiv:2403.03507
+
+  - APOLLO: SGD-like Memory, AdamW-level Performance.
+    H. Zhu, Z. Zhang, W. Cong, X. Liu, S. Park, V. Chandra, B. Long,
+    D. Z. Pan, Z. Wang, J. Lee. MLSys 2025. arXiv:2412.05270
+
+  - Fira: Can We Achieve Full-Rank Training of LLMs Under Low-rank
+    Constraint? X. Chen, K. Feng, C. Li, X. Lai, X. Yue, Y. Yuan, G. Wang.
+    NeurIPS 2025. arXiv:2410.01623 (norm-growth limiter concept)
+
+  - Q-GaLore: Quantized GaLore with INT4 Projection and Layer-Adaptive
+    Low-Rank Gradients. Z. Zhang, A. Jaiswal, L. Yin, S. Liu, J. Zhao,
+    Y. Tian, Z. Wang. arXiv:2407.08296, 2024
+
+The citations above are provided for academic attribution of the underlying
+research ideas only. Hakuli is not affiliated with, endorsed by, or derived
+from the source code of any of these projects. Hakuli was implemented from
+published algorithmic descriptions and independently written source code.
+
+"XAEDRO" and "Hakuli" are trademarks of XAEDRO. All other trademarks are
+the property of their respective owners.

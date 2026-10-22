@@ -1,0 +1,15 @@
+{
+  "method": "hakuli",
+  "model": "random:llama:2:64",
+  "dataset": "synthetic",
+  "batch_size": 2,
+  "seq_len": 128,
+  "steps": 12,
+  "warmup_steps": 3,
+  "lr": 1e-4,
+  "rank": 16,
+  "scale": 1.0,
+  "update_proj_gap": 5,
+  "seed": 0,
+  "output": "benchmarks/results/smoke_hakuli.json"
+}

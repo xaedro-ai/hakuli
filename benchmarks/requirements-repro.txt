@@ -1,0 +1,17 @@
+# Frozen environment of the reported experiment.
+#
+# Exact versions used for the results in paper/hakuli-technical-report.pdf
+# and benchmarks/RESULTS.md (LLaMA-7B on RTX 3090, matched-scale comparison,
+# October 2026).
+#
+# DO NOT UPDATE AUTOMATICALLY: this is a historical snapshot. It is excluded
+# from Dependabot updates in .github/dependabot.yml. Current, unpinned harness
+# dependencies live in requirements.txt.
+
+torch==2.14.1
+transformers==5.19.0
+datasets==5.1.0
+galore-torch==1.0
+q-galore-torch==1.0
+apollo-torch==1.0.3
+matplotlib  # plotting only; not part of the numeric results

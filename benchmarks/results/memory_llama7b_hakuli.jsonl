@@ -1,0 +1,102 @@
+{"step": 0, "val_loss": 2.2299}
+{"step": 10, "loss": 2.301, "grad_norm": 3.3985, "lr": 1e-05, "tokens_per_sec_window": 1043.9, "peak_vram_gib": 20.51, "update_norm": 30548.0}
+{"step": 20, "loss": 2.6159, "grad_norm": 3.8333, "lr": 1e-05, "tokens_per_sec_window": 1043.4, "peak_vram_gib": 20.51, "update_norm": 23638.5}
+{"step": 30, "loss": 2.1644, "grad_norm": 3.9558, "lr": 1e-05, "tokens_per_sec_window": 1040.3, "peak_vram_gib": 20.51, "update_norm": 19513.0818}
+{"step": 40, "loss": 2.4384, "grad_norm": 3.8825, "lr": 1e-05, "tokens_per_sec_window": 1049.2, "peak_vram_gib": 20.51, "update_norm": 15880.7209}
+{"step": 50, "loss": 2.805, "grad_norm": 4.6359, "lr": 1e-05, "tokens_per_sec_window": 1043.3, "peak_vram_gib": 20.51, "update_norm": 15856.0809}
+{"step": 60, "loss": 2.5521, "grad_norm": 3.3998, "lr": 1e-05, "tokens_per_sec_window": 1039.7, "peak_vram_gib": 20.51, "update_norm": 14043.2646}
+{"step": 70, "loss": 2.4997, "grad_norm": 3.5522, "lr": 1e-05, "tokens_per_sec_window": 1039.0, "peak_vram_gib": 20.51, "update_norm": 12610.814}
+{"step": 80, "loss": 2.6513, "grad_norm": 3.5464, "lr": 1e-05, "tokens_per_sec_window": 1063.4, "peak_vram_gib": 20.51, "update_norm": 12099.1128}
+{"step": 90, "loss": 2.1197, "grad_norm": 4.7291, "lr": 1e-05, "tokens_per_sec_window": 1055.9, "peak_vram_gib": 20.51, "update_norm": 11804.5644}
+{"step": 100, "loss": 1.7439, "grad_norm": 4.3145, "lr": 1e-05, "tokens_per_sec_window": 1073.8, "peak_vram_gib": 20.51, "update_norm": 11021.04, "val_loss": 2.2256}
+{"step": 110, "loss": 2.1177, "grad_norm": 3.872, "lr": 1e-05, "tokens_per_sec_window": 891.5, "peak_vram_gib": 20.51, "update_norm": 11277.024}
+{"step": 120, "loss": 2.058, "grad_norm": 3.9044, "lr": 1e-05, "tokens_per_sec_window": 1040.1, "peak_vram_gib": 20.51, "update_norm": 11397.3286}
+{"step": 130, "loss": 2.3992, "grad_norm": 3.3795, "lr": 1e-05, "tokens_per_sec_window": 1044.2, "peak_vram_gib": 20.51, "update_norm": 9875.4225}
+{"step": 140, "loss": 2.8448, "grad_norm": 4.1383, "lr": 1e-05, "tokens_per_sec_window": 1040.3, "peak_vram_gib": 20.51, "update_norm": 8943.5449}
+{"step": 150, "loss": 2.0719, "grad_norm": 3.7994, "lr": 1e-05, "tokens_per_sec_window": 1041.1, "peak_vram_gib": 20.51, "update_norm": 8485.5859}
+{"step": 160, "loss": 2.0673, "grad_norm": 3.3676, "lr": 1e-05, "tokens_per_sec_window": 1040.9, "peak_vram_gib": 20.51, "update_norm": 8374.717}
+{"step": 170, "loss": 2.4061, "grad_norm": 3.1086, "lr": 1e-05, "tokens_per_sec_window": 1040.5, "peak_vram_gib": 20.51, "update_norm": 8069.5054}
+{"step": 180, "loss": 2.3769, "grad_norm": 3.5617, "lr": 1e-05, "tokens_per_sec_window": 1039.9, "peak_vram_gib": 20.51, "update_norm": 8041.4863}
+{"step": 190, "loss": 2.3444, "grad_norm": 3.7757, "lr": 1e-05, "tokens_per_sec_window": 1040.2, "peak_vram_gib": 20.51, "update_norm": 7299.1729}
+{"step": 200, "loss": 2.0313, "grad_norm": 3.9392, "lr": 1e-05, "tokens_per_sec_window": 1040.0, "peak_vram_gib": 20.51, "update_norm": 7677.6076, "val_loss": 2.2221}
+{"step": 210, "loss": 2.4012, "grad_norm": 3.2914, "lr": 1e-05, "tokens_per_sec_window": 881.5, "peak_vram_gib": 20.51, "update_norm": 7193.4473}
+{"step": 220, "loss": 2.4935, "grad_norm": 3.2638, "lr": 1e-05, "tokens_per_sec_window": 1038.5, "peak_vram_gib": 20.51, "update_norm": 7100.8887}
+{"step": 230, "loss": 2.3783, "grad_norm": 3.2016, "lr": 1e-05, "tokens_per_sec_window": 1039.9, "peak_vram_gib": 20.51, "update_norm": 7562.5341}
+{"step": 240, "loss": 2.3803, "grad_norm": 3.1132, "lr": 1e-05, "tokens_per_sec_window": 1040.8, "peak_vram_gib": 20.51, "update_norm": 6825.8612}
+{"step": 250, "loss": 2.7528, "grad_norm": 4.0415, "lr": 1e-05, "tokens_per_sec_window": 1040.1, "peak_vram_gib": 20.51, "update_norm": 6770.0338}
+{"step": 260, "loss": 1.9734, "grad_norm": 4.1447, "lr": 1e-05, "tokens_per_sec_window": 1039.5, "peak_vram_gib": 20.51, "update_norm": 6821.144}
+{"step": 270, "loss": 1.8797, "grad_norm": 3.6927, "lr": 1e-05, "tokens_per_sec_window": 1040.5, "peak_vram_gib": 20.51, "update_norm": 6467.4651}
+{"step": 280, "loss": 2.0357, "grad_norm": 3.8265, "lr": 1e-05, "tokens_per_sec_window": 1041.3, "peak_vram_gib": 20.51, "update_norm": 6168.3858}
+{"step": 290, "loss": 2.2909, "grad_norm": 3.5818, "lr": 1e-05, "tokens_per_sec_window": 1040.2, "peak_vram_gib": 20.51, "update_norm": 6471.3956}
+{"step": 300, "loss": 2.1101, "grad_norm": 3.474, "lr": 1e-05, "tokens_per_sec_window": 1040.4, "peak_vram_gib": 20.51, "update_norm": 6623.582, "val_loss": 2.2183}
+{"step": 310, "loss": 2.6424, "grad_norm": 3.7926, "lr": 1e-05, "tokens_per_sec_window": 881.3, "peak_vram_gib": 20.51, "update_norm": 6290.8057}
+{"step": 320, "loss": 2.3395, "grad_norm": 3.0756, "lr": 1e-05, "tokens_per_sec_window": 1040.5, "peak_vram_gib": 20.51, "update_norm": 5782.1571}
+{"step": 330, "loss": 1.8685, "grad_norm": 3.2981, "lr": 1e-05, "tokens_per_sec_window": 1039.7, "peak_vram_gib": 20.51, "update_norm": 5857.0706}
+{"step": 340, "loss": 1.9963, "grad_norm": 3.2308, "lr": 1e-05, "tokens_per_sec_window": 1040.3, "peak_vram_gib": 20.51, "update_norm": 6190.3198}
+{"step": 350, "loss": 2.3896, "grad_norm": 3.1663, "lr": 1e-05, "tokens_per_sec_window": 1040.3, "peak_vram_gib": 20.51, "update_norm": 5550.377}
+{"step": 360, "loss": 2.1555, "grad_norm": 3.6041, "lr": 1e-05, "tokens_per_sec_window": 1040.5, "peak_vram_gib": 20.51, "update_norm": 5867.511}
+{"step": 370, "loss": 1.7639, "grad_norm": 3.665, "lr": 1e-05, "tokens_per_sec_window": 1040.1, "peak_vram_gib": 20.51, "update_norm": 6309.4475}
+{"step": 380, "loss": 2.3848, "grad_norm": 3.0742, "lr": 1e-05, "tokens_per_sec_window": 1039.9, "peak_vram_gib": 20.51, "update_norm": 5691.1632}
+{"step": 390, "loss": 2.321, "grad_norm": 3.2191, "lr": 1e-05, "tokens_per_sec_window": 1040.3, "peak_vram_gib": 20.51, "update_norm": 5491.7983}
+{"step": 400, "loss": 2.2063, "grad_norm": 3.9514, "lr": 1e-05, "tokens_per_sec_window": 1040.7, "peak_vram_gib": 20.51, "update_norm": 5610.7693, "val_loss": 2.2158}
+{"step": 410, "loss": 2.1232, "grad_norm": 4.4589, "lr": 1e-05, "tokens_per_sec_window": 881.5, "peak_vram_gib": 20.51, "update_norm": 5749.4732}
+{"step": 420, "loss": 2.0026, "grad_norm": 3.4977, "lr": 1e-05, "tokens_per_sec_window": 1040.9, "peak_vram_gib": 20.51, "update_norm": 5359.7851}
+{"step": 430, "loss": 2.067, "grad_norm": 4.249, "lr": 1e-05, "tokens_per_sec_window": 1040.4, "peak_vram_gib": 20.51, "update_norm": 5801.872}
+{"step": 440, "loss": 2.3542, "grad_norm": 3.4575, "lr": 1e-05, "tokens_per_sec_window": 1039.4, "peak_vram_gib": 20.51, "update_norm": 5559.4337}
+{"step": 450, "loss": 2.3646, "grad_norm": 3.1729, "lr": 1e-05, "tokens_per_sec_window": 1041.3, "peak_vram_gib": 20.51, "update_norm": 5551.5402}
+{"step": 460, "loss": 2.6504, "grad_norm": 3.775, "lr": 1e-05, "tokens_per_sec_window": 1039.7, "peak_vram_gib": 20.51, "update_norm": 5092.0518}
+{"step": 470, "loss": 2.3515, "grad_norm": 3.3898, "lr": 1e-05, "tokens_per_sec_window": 1040.2, "peak_vram_gib": 20.51, "update_norm": 5422.8852}
+{"step": 480, "loss": 1.9199, "grad_norm": 4.7255, "lr": 1e-05, "tokens_per_sec_window": 1040.6, "peak_vram_gib": 20.51, "update_norm": 5777.8569}
+{"step": 490, "loss": 2.3939, "grad_norm": 3.3937, "lr": 1e-05, "tokens_per_sec_window": 1040.4, "peak_vram_gib": 20.51, "update_norm": 5497.9603}
+{"step": 500, "loss": 2.5071, "grad_norm": 3.4463, "lr": 1e-05, "tokens_per_sec_window": 1041.0, "peak_vram_gib": 20.51, "update_norm": 5315.87, "val_loss": 2.2133}
+{"step": 510, "loss": 2.9371, "grad_norm": 3.4357, "lr": 1e-05, "tokens_per_sec_window": 881.2, "peak_vram_gib": 20.51, "update_norm": 5231.773}
+{"step": 520, "loss": 1.8391, "grad_norm": 3.9633, "lr": 1e-05, "tokens_per_sec_window": 1040.7, "peak_vram_gib": 20.51, "update_norm": 5280.6488}
+{"step": 530, "loss": 2.2227, "grad_norm": 3.4346, "lr": 1e-05, "tokens_per_sec_window": 1040.4, "peak_vram_gib": 20.51, "update_norm": 5254.864}
+{"step": 540, "loss": 2.4208, "grad_norm": 3.8571, "lr": 1e-05, "tokens_per_sec_window": 1040.2, "peak_vram_gib": 20.51, "update_norm": 5189.7339}
+{"step": 550, "loss": 2.4213, "grad_norm": 3.0687, "lr": 1e-05, "tokens_per_sec_window": 1040.7, "peak_vram_gib": 20.51, "update_norm": 4888.801}
+{"step": 560, "loss": 2.286, "grad_norm": 3.8083, "lr": 1e-05, "tokens_per_sec_window": 1040.6, "peak_vram_gib": 20.51, "update_norm": 4583.0271}
+{"step": 570, "loss": 2.4025, "grad_norm": 3.1536, "lr": 1e-05, "tokens_per_sec_window": 1039.8, "peak_vram_gib": 20.51, "update_norm": 4777.8639}
+{"step": 580, "loss": 2.1235, "grad_norm": 3.7975, "lr": 1e-05, "tokens_per_sec_window": 1040.1, "peak_vram_gib": 20.51, "update_norm": 5161.1328}
+{"step": 590, "loss": 2.7294, "grad_norm": 4.5534, "lr": 1e-05, "tokens_per_sec_window": 1040.4, "peak_vram_gib": 20.51, "update_norm": 5191.6203}
+{"step": 600, "loss": 2.3161, "grad_norm": 3.4862, "lr": 1e-05, "tokens_per_sec_window": 979.8, "peak_vram_gib": 20.51, "update_norm": 4791.1318, "val_loss": 2.2114}
+{"step": 610, "loss": 2.2276, "grad_norm": 3.1842, "lr": 1e-05, "tokens_per_sec_window": 884.4, "peak_vram_gib": 20.51, "update_norm": 4813.6243}
+{"step": 620, "loss": 2.8707, "grad_norm": 6.3426, "lr": 1e-05, "tokens_per_sec_window": 1043.4, "peak_vram_gib": 20.51, "update_norm": 4814.6749}
+{"step": 630, "loss": 2.5534, "grad_norm": 3.3462, "lr": 1e-05, "tokens_per_sec_window": 1059.1, "peak_vram_gib": 20.51, "update_norm": 5130.7318}
+{"step": 640, "loss": 2.0636, "grad_norm": 3.4928, "lr": 1e-05, "tokens_per_sec_window": 1077.0, "peak_vram_gib": 20.51, "update_norm": 4496.6499}
+{"step": 650, "loss": 2.2446, "grad_norm": 3.8622, "lr": 1e-05, "tokens_per_sec_window": 1077.3, "peak_vram_gib": 20.51, "update_norm": 4620.6643}
+{"step": 660, "loss": 2.386, "grad_norm": 3.6139, "lr": 1e-05, "tokens_per_sec_window": 1077.4, "peak_vram_gib": 20.51, "update_norm": 4506.5158}
+{"step": 670, "loss": 2.428, "grad_norm": 3.1985, "lr": 1e-05, "tokens_per_sec_window": 1077.3, "peak_vram_gib": 20.51, "update_norm": 4526.0134}
+{"step": 680, "loss": 2.4074, "grad_norm": 3.5587, "lr": 1e-05, "tokens_per_sec_window": 1077.1, "peak_vram_gib": 20.51, "update_norm": 4649.2738}
+{"step": 690, "loss": 2.4075, "grad_norm": 3.1923, "lr": 1e-05, "tokens_per_sec_window": 1076.4, "peak_vram_gib": 20.51, "update_norm": 4229.1853}
+{"step": 700, "loss": 2.3862, "grad_norm": 3.2203, "lr": 1e-05, "tokens_per_sec_window": 1077.9, "peak_vram_gib": 20.51, "update_norm": 4563.5479, "val_loss": 2.2096}
+{"step": 710, "loss": 2.1489, "grad_norm": 3.2512, "lr": 1e-05, "tokens_per_sec_window": 911.6, "peak_vram_gib": 20.51, "update_norm": 4858.4529}
+{"step": 720, "loss": 2.07, "grad_norm": 3.0631, "lr": 1e-05, "tokens_per_sec_window": 1077.1, "peak_vram_gib": 20.51, "update_norm": 4428.249}
+{"step": 730, "loss": 2.0101, "grad_norm": 3.3075, "lr": 1e-05, "tokens_per_sec_window": 1077.7, "peak_vram_gib": 20.51, "update_norm": 4374.7493}
+{"step": 740, "loss": 2.104, "grad_norm": 5.4409, "lr": 1e-05, "tokens_per_sec_window": 1076.8, "peak_vram_gib": 20.51, "update_norm": 4267.0908}
+{"step": 750, "loss": 2.2807, "grad_norm": 3.3032, "lr": 1e-05, "tokens_per_sec_window": 1077.6, "peak_vram_gib": 20.51, "update_norm": 4467.026}
+{"step": 760, "loss": 2.2569, "grad_norm": 3.2582, "lr": 1e-05, "tokens_per_sec_window": 1077.7, "peak_vram_gib": 20.51, "update_norm": 4402.5316}
+{"step": 770, "loss": 2.07, "grad_norm": 3.2614, "lr": 1e-05, "tokens_per_sec_window": 1077.1, "peak_vram_gib": 20.51, "update_norm": 4157.2213}
+{"step": 780, "loss": 2.0055, "grad_norm": 4.2873, "lr": 1e-05, "tokens_per_sec_window": 1078.3, "peak_vram_gib": 20.51, "update_norm": 3992.5048}
+{"step": 790, "loss": 2.3889, "grad_norm": 4.0276, "lr": 1e-05, "tokens_per_sec_window": 1076.9, "peak_vram_gib": 20.51, "update_norm": 4262.9214}
+{"step": 800, "loss": 2.2034, "grad_norm": 3.571, "lr": 1e-05, "tokens_per_sec_window": 1077.3, "peak_vram_gib": 20.51, "update_norm": 4446.6886, "val_loss": 2.2084}
+{"step": 810, "loss": 2.2261, "grad_norm": 3.9234, "lr": 1e-05, "tokens_per_sec_window": 912.3, "peak_vram_gib": 20.51, "update_norm": 4433.3107}
+{"step": 820, "loss": 2.4674, "grad_norm": 3.2148, "lr": 1e-05, "tokens_per_sec_window": 1076.4, "peak_vram_gib": 20.51, "update_norm": 4259.9421}
+{"step": 830, "loss": 2.3901, "grad_norm": 3.2134, "lr": 1e-05, "tokens_per_sec_window": 1065.7, "peak_vram_gib": 20.51, "update_norm": 4145.9914}
+{"step": 840, "loss": 2.1776, "grad_norm": 3.6547, "lr": 1e-05, "tokens_per_sec_window": 1041.2, "peak_vram_gib": 20.51, "update_norm": 4189.3233}
+{"step": 850, "loss": 2.0804, "grad_norm": 3.5734, "lr": 1e-05, "tokens_per_sec_window": 1043.3, "peak_vram_gib": 20.51, "update_norm": 4239.2121}
+{"step": 860, "loss": 2.2986, "grad_norm": 3.0895, "lr": 1e-05, "tokens_per_sec_window": 1043.3, "peak_vram_gib": 20.51, "update_norm": 4212.9401}
+{"step": 870, "loss": 2.4514, "grad_norm": 3.1563, "lr": 1e-05, "tokens_per_sec_window": 1043.5, "peak_vram_gib": 20.51, "update_norm": 3964.613}
+{"step": 880, "loss": 2.0109, "grad_norm": 3.0589, "lr": 1e-05, "tokens_per_sec_window": 1043.9, "peak_vram_gib": 20.51, "update_norm": 4265.782}
+{"step": 890, "loss": 1.8362, "grad_norm": 6.5791, "lr": 1e-05, "tokens_per_sec_window": 1038.6, "peak_vram_gib": 20.51, "update_norm": 4198.1938}
+{"step": 900, "loss": 2.1792, "grad_norm": 2.8627, "lr": 1e-05, "tokens_per_sec_window": 1038.9, "peak_vram_gib": 20.51, "update_norm": 4260.6956, "val_loss": 2.2068}
+{"step": 910, "loss": 2.3246, "grad_norm": 3.3111, "lr": 1e-05, "tokens_per_sec_window": 880.2, "peak_vram_gib": 20.51, "update_norm": 4307.0528}
+{"step": 920, "loss": 2.2738, "grad_norm": 4.0608, "lr": 1e-05, "tokens_per_sec_window": 1039.0, "peak_vram_gib": 20.51, "update_norm": 4019.0154}
+{"step": 930, "loss": 2.2609, "grad_norm": 3.3384, "lr": 1e-05, "tokens_per_sec_window": 1039.5, "peak_vram_gib": 20.51, "update_norm": 3923.9944}
+{"step": 940, "loss": 2.5086, "grad_norm": 3.5569, "lr": 1e-05, "tokens_per_sec_window": 1038.7, "peak_vram_gib": 20.51, "update_norm": 3994.7681}
+{"step": 950, "loss": 2.2309, "grad_norm": 2.8893, "lr": 1e-05, "tokens_per_sec_window": 1039.1, "peak_vram_gib": 20.51, "update_norm": 4146.1371}
+{"step": 960, "loss": 2.21, "grad_norm": 3.584, "lr": 1e-05, "tokens_per_sec_window": 1038.8, "peak_vram_gib": 20.51, "update_norm": 4287.3352}
+{"step": 970, "loss": 2.6827, "grad_norm": 3.4996, "lr": 1e-05, "tokens_per_sec_window": 1039.7, "peak_vram_gib": 20.51, "update_norm": 4423.7749}
+{"step": 980, "loss": 2.7829, "grad_norm": 3.697, "lr": 1e-05, "tokens_per_sec_window": 1039.7, "peak_vram_gib": 20.51, "update_norm": 4017.6689}
+{"step": 990, "loss": 2.3726, "grad_norm": 3.0561, "lr": 1e-05, "tokens_per_sec_window": 1038.7, "peak_vram_gib": 20.51, "update_norm": 4283.3499}
+{"step": 1000, "loss": 2.222, "grad_norm": 3.0722, "lr": 1e-05, "tokens_per_sec_window": 1032.1, "peak_vram_gib": 20.51, "update_norm": 4250.5452, "val_loss": 2.2055}
+{"step": 1000, "val_loss": 2.2055}

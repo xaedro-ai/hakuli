@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hakuli"
+version = "1.0.0"
+description = "Hakuli: memory-efficient optimizer for full-parameter LLM training without SVD."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Evaristo Cordoba Ancajima", email = "research@xaedro.com" },
+    { name = "XAEDRO" },
+]
+keywords = [
+    "llm",
+    "optimizer",
+    "memory-efficient",
+    "fine-tuning",
+    "training",
+    "low-rank",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = ["torch>=2.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-cov>=4.0"]
+
+[project.urls]
+Homepage = "https://github.com/xaedro-ai/hakuli"
+Repository = "https://github.com/xaedro-ai/hakuli"
+
+[tool.setuptools.packages.find]
+include = ["hakuli*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["hakuli"]
