@@ -154,6 +154,8 @@ def make_optimizers(
     scale: float,
     gap: int,
     scale_front: bool = False,
+    nl_threshold: float = 1.01,
+    config_extra_kwargs: Optional[dict] = None,
 ):
     """Return (per_parameter_optimizers, shared_optimizer).
 
@@ -173,6 +175,7 @@ def make_optimizers(
     if method == "hakuli":
         from hakuli import Hakuli
 
+        extra = config_extra_kwargs if config_extra_kwargs else {}
         for p in low_rank:
             per_param.append(
                 (
@@ -184,6 +187,8 @@ def make_optimizers(
                         scale=scale,
                         update_proj_gap=gap,
                         scale_type="channel",
+                        nl_threshold=nl_threshold,
+                        **extra,
                     ),
                 )
             )
@@ -292,6 +297,8 @@ def run(config: dict, repo_root: Path) -> RunResult:
     eval_batches_n = config.get("eval_batches", 0)
     eval_every = config.get("eval_every", 0)
     print_every = config.get("print_every", 10)
+    spike_every = config.get("spike_every", 0)
+    spike_factor = config.get("spike_factor", 1.0)
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     set_seed(seed)
@@ -310,7 +317,15 @@ def run(config: dict, repo_root: Path) -> RunResult:
     eval_batches = [next(batches) for _ in range(eval_batches_n)]
 
     per_param, shared = make_optimizers(
-        method, model, lr, rank, scale, gap, config.get("scale_front", False)
+        method,
+        model,
+        lr,
+        rank,
+        scale,
+        gap,
+        config.get("scale_front", False),
+        config.get("nl_threshold", 1.01),
+        config.get("optimizer_kwargs"),
     )
     stats = {"grad_norm_sq": 0.0}
     attach_hooks(per_param, stats)
@@ -347,7 +362,10 @@ def run(config: dict, repo_root: Path) -> RunResult:
         stats["grad_norm_sq"] = 0.0
         model.zero_grad(set_to_none=True)
         output = model(input_ids=ids, labels=ids)
-        output.loss.backward()
+        loss_to_backward = output.loss
+        if spike_every and (step + 1) % spike_every == 0:
+            loss_to_backward = loss_to_backward * spike_factor
+        loss_to_backward.backward()
         if shared is not None:
             if not per_param:
                 for p in model.parameters():

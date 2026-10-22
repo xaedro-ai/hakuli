@@ -1,0 +1,17 @@
+{"step": 0, "val_loss": 2.2301}
+{"step": 10, "loss": 2.3017, "grad_norm": 3.3951, "lr": 1e-05, "tokens_per_sec_window": 1117.4, "peak_vram_gib": 20.51, "update_norm": 30597.0}
+{"step": 20, "loss": 2.615, "grad_norm": 3.8344, "lr": 1e-05, "tokens_per_sec_window": 1117.4, "peak_vram_gib": 20.51, "update_norm": 23619.0}
+{"step": 30, "loss": 2.164, "grad_norm": 3.9083, "lr": 1e-05, "tokens_per_sec_window": 1117.2, "peak_vram_gib": 20.51, "update_norm": 22790.041}
+{"step": 40, "loss": 2.4389, "grad_norm": 3.8877, "lr": 1e-05, "tokens_per_sec_window": 1116.0, "peak_vram_gib": 20.51, "update_norm": 11640.0}
+{"step": 50, "loss": 2.8052, "grad_norm": 233.2783, "lr": 1e-05, "tokens_per_sec_window": 1110.7, "peak_vram_gib": 20.51, "update_norm": 9331.459, "val_loss": 2.2279}
+{"step": 60, "loss": 2.5533, "grad_norm": 3.4231, "lr": 1e-05, "tokens_per_sec_window": 933.3, "peak_vram_gib": 20.51, "update_norm": 10060.7988}
+{"step": 70, "loss": 2.5009, "grad_norm": 3.5634, "lr": 1e-05, "tokens_per_sec_window": 1109.2, "peak_vram_gib": 20.51, "update_norm": 6519.0068}
+{"step": 80, "loss": 2.6528, "grad_norm": 3.5561, "lr": 1e-05, "tokens_per_sec_window": 1109.0, "peak_vram_gib": 20.51, "update_norm": 6401.8506}
+{"step": 90, "loss": 2.1199, "grad_norm": 4.4984, "lr": 1e-05, "tokens_per_sec_window": 1109.2, "peak_vram_gib": 20.51, "update_norm": 6186.0811}
+{"step": 100, "loss": 1.7461, "grad_norm": 218.4676, "lr": 1e-05, "tokens_per_sec_window": 1109.2, "peak_vram_gib": 20.51, "update_norm": 5204.7051, "val_loss": 2.2272}
+{"step": 110, "loss": 2.1208, "grad_norm": 3.9948, "lr": 1e-05, "tokens_per_sec_window": 930.9, "peak_vram_gib": 20.51, "update_norm": 5749.231}
+{"step": 120, "loss": 2.061, "grad_norm": 3.911, "lr": 1e-05, "tokens_per_sec_window": 1109.3, "peak_vram_gib": 20.51, "update_norm": 5670.103}
+{"step": 130, "loss": 2.4011, "grad_norm": 3.3895, "lr": 1e-05, "tokens_per_sec_window": 1109.7, "peak_vram_gib": 20.51, "update_norm": 5522.1313}
+{"step": 140, "loss": 2.848, "grad_norm": 4.181, "lr": 1e-05, "tokens_per_sec_window": 1110.1, "peak_vram_gib": 20.51, "update_norm": 4852.7114}
+{"step": 150, "loss": 2.0751, "grad_norm": 168.9209, "lr": 1e-05, "tokens_per_sec_window": 1111.5, "peak_vram_gib": 20.51, "update_norm": 4161.2588, "val_loss": 2.2269}
+{"step": 150, "val_loss": 2.2269}

@@ -2,7 +2,9 @@
 
 Reproducible benchmarks for the Hakuli optimizer. Everything here is run by
 `run_benchmark.py` with a JSON config; results land in `results/` as JSON and
-`table.py` renders the comparison tables used in the paper and README.
+`table.py` renders the comparison tables used in the paper and README. The
+optimizer-only microbenchmark lives in `microbench.py` (fixed gradients, no
+resampling).
 
 ## Hardware and protocol
 
@@ -57,9 +59,14 @@ python benchmarks/run_benchmark.py --config benchmarks/configs/memory_llama7b_ha
 ```
 
 Config fields: `method` (`hakuli`, `adamw`, `galore`, `qgalore`, `apollo`),
-`model` (Hugging Face id, or `random:llama:<layers>:<hidden>` for smoke tests),
-`dataset` (`c4`, `smoltalk`, `synthetic`), `batch_size`, `seq_len`, `lr`,
-`steps`, `warmup_steps`, `rank`, `scale`, `update_proj_gap`, `seed`, `output`.
+`model` (Hugging Face id, a local path such as `models/llama-7b`, or
+`random:llama:<layers>:<hidden>` for smoke tests), `dataset` (`c4`,
+`smoltalk`, `synthetic`), `batch_size`, `seq_len`, `lr`, `steps`,
+`warmup_steps`, `rank`, `scale`, `update_proj_gap`, `nl_threshold`, `seed`,
+`output`. Two fields drive the spike-regime runs: `spike_every` and
+`spike_factor` multiply the loss of every n-th step before backward, and
+`optimizer_kwargs` passes experimental options (e.g.
+`{"anti_windup": true}`) through to the optimizer.
 
 The `apollo` method runs the official `apollo-torch` package (CC-BY-NC,
 installed separately) strictly as an external black-box dependency for the

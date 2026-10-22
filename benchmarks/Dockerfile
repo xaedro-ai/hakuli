@@ -1,9 +1,9 @@
 FROM python:3.11-slim
 
 # Reproduces the software environment of the reported experiment:
-# Python 3.11, PyTorch 2.5.1+cu124 (the default PyPI CUDA wheel for 2.5.1),
-# Transformers 4.57.6, Datasets 5.0.1. The frozen versions are pinned in
-# benchmarks/requirements-repro.txt.
+# Python 3.11, PyTorch 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1.
+# benchmarks/requirements-repro.txt pins the historical versions and points
+# pip at the official PyTorch CUDA 12.4 wheel index for the +cu124 build.
 
 WORKDIR /workspace
 

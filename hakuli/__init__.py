@@ -6,4 +6,4 @@ Developed by XAEDRO.
 from hakuli.optim import Hakuli
 
 __all__ = ["Hakuli"]
-__version__ = "1.0.0"
+__version__ = "2.1.0"

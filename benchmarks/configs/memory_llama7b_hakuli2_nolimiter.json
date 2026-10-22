@@ -1,0 +1,20 @@
+{
+  "method": "hakuli",
+  "model": "models/llama-7b",
+  "dataset": "c4",
+  "batch_size": 16,
+  "seq_len": 256,
+  "steps": 1000,
+  "warmup_steps": 10,
+  "lr": 1e-05,
+  "rank": 512,
+  "scale": 1.0,
+  "update_proj_gap": 200,
+  "nl_threshold": 1000000000.0,
+  "seed": 0,
+  "eval_batches": 8,
+  "eval_every": 100,
+  "print_every": 10,
+  "output": "benchmarks/results/memory_llama7b_hakuli2_nolimiter.json",
+  "log_jsonl": "benchmarks/results/memory_llama7b_hakuli2_nolimiter.jsonl"
+}
