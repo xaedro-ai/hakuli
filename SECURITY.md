@@ -6,6 +6,7 @@ The latest released minor version receives security fixes.
 
 | Version | Supported |
 |---------|-----------|
+| 2.x     | Yes       |
 | 1.x     | Yes       |
 
 ## Reporting a vulnerability
