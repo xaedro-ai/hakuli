@@ -1,5 +1,11 @@
 FROM python:3.11-slim
 
+# WARNING: INSECURE HISTORICAL REPRODUCTION ONLY.
+# Uses torch 2.5.1 (known checkpoint RCE advisories) and older transformers.
+# Build and run only in isolated disposable environments with no secrets,
+# no sensitive mounted files, no network access to private resources, and
+# never load untrusted checkpoints. See SECURITY.md.
+#
 # Reproduces the software environment of the reported experiment:
 # Python 3.11, PyTorch 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1.
 # benchmarks/requirements-repro.txt pins the historical versions and points
