@@ -8,14 +8,9 @@
 # from Dependabot updates in .github/dependabot.yml. Current, unpinned harness
 # dependencies live in requirements.txt.
 #
-# SECURITY WARNING: HISTORICAL/INSECURE ENVIRONMENT.
-# This file is deliberately frozen for reproducing published October 2026
-# measurements, NOT for development, production, or trusted deployments.
-# torch 2.5.1 is affected by CVE-2025-32434 and CVE-2026-24747;
-# transformers 4.57.6 precedes the fix for CVE-2026-4372.
-# Use only in a disposable isolated environment without secrets and do NOT
-# load untrusted models/checkpoints. For current work install the dependencies
-# in benchmarks/requirements.txt instead.
+# Historical dependencies include known PyTorch and Transformers security
+# vulnerabilities. Reproduce results only in an isolated environment;
+# do not load untrusted model files or provide sensitive credentials.
 #
 # The reported run used the CUDA 12.4 build of PyTorch 2.5.1.
 --extra-index-url https://download.pytorch.org/whl/cu124
