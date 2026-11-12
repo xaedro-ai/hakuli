@@ -9,25 +9,23 @@ The latest released minor version receives security fixes.
 | 2.x     | Yes       |
 | 1.x     | No        |
 
-## Dependency security baseline
+## PyTorch dependency advisories
 
-Current supported Hakuli installs require Python 3.11+ and
-`torch>=2.15.0`. Earlier torch releases include checkpoint deserialization
-vulnerabilities, including:
+Hakuli 2.x requires a patched PyTorch installation. New installations must
+use `torch>=2.15.0` with Python 3.11+.
 
-- CVE-2025-32434 / GHSA-53q9-r3pm-6pq6 (fixed in torch 2.6.0)
-- CVE-2026-24747 / GHSA-63cw-57p8-fm3p (fixed in torch 2.10.0)
-- GHSA-v32g-mr63-3j83 (torch 2.14.x arbitrary file read; fixed in 2.15.0)
+| Advisory | Impact | Fixed in PyTorch |
+| --- | --- | --- |
+| [CVE-2025-32434](https://github.com/advisories/GHSA-53q9-r3pm-6pq6) | Code execution via malicious checkpoint | 2.6.0 |
+| [CVE-2026-24747](https://github.com/advisories/GHSA-63cw-57p8-fm3p) | Code execution via malicious checkpoint | 2.10.0 |
+| [GHSA-v32g-mr63-3j83](https://github.com/pytorch/pytorch/security/advisories/GHSA-v32g-mr63-3j83) | File disclosure via malicious checkpoint | 2.15.0 |
 
-These are **upstream PyTorch vulnerabilities**, not reports of a flaw in
-Hakuli's optimizer algorithm. Do not load untrusted checkpoint files or model
-artifacts even when using `torch.load(..., weights_only=True)`.
+These advisories affect upstream PyTorch checkpoint loading, not Hakuli's
+optimizer implementation. Do not load checkpoints from untrusted sources.
 
-`benchmarks/requirements-repro.txt` and the reproduction Dockerfile preserve
-historical dependency versions to make the October 2026 measurements
-reproducible; they are intentionally **not** supported for production and
-include vulnerable packages. Use only in an isolated, disposable environment
-without credentials, mounted secrets, or untrusted model files.
+The benchmark reproduction environment is pinned to the dependencies used
+for the October 2026 results and is not suitable for production or
+untrusted inputs. Run historical reproductions in an isolated environment.
 
 ## Reporting a vulnerability
 
