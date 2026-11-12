@@ -9,20 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-- Require PyTorch 2.15.0+ to avoid known upstream checkpoint-loading RCE and
-  arbitrary-file-read advisories (CVE-2025-32434, CVE-2026-24747,
-  GHSA-v32g-mr63-3j83).
-- Raise supported Python baseline to 3.11+ (PyTorch 2.15 requirement).
-- Raise active benchmark requirement to torch 2.15+; leave the October 2026
-  reproducibility snapshot untouched, with explicit security warnings.
-- Exclude frozen historical benchmark manifests from root Dependabot scanning,
-  and update CI matrix to supported Python versions.
+- Require PyTorch >=2.15.0 and Python >=3.11 to exclude vulnerable
+  PyTorch checkpoint-loading versions.
+- Update active benchmark requirements and CI compatibility.
+- Preserve the historical benchmark dependency snapshot with a security warning.
 
 ### Compatibility
 
-- This is a breaking minimum-dependency change for Python 3.9/3.10 and
-  environments that require older PyTorch/CUDA releases. No optimizer
-  update-rule changes are included. Publication requires a new PyPI release.
+- Python 3.9/3.10 and PyTorch <2.15.0 are no longer supported.
 
 ## [2.1.0] - 2026-10-17
 
