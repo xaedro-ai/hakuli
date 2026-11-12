@@ -7,7 +7,25 @@ The latest released minor version receives security fixes.
 | Version | Supported |
 |---------|-----------|
 | 2.x     | Yes       |
-| 1.x     | Yes       |
+| 1.x     | No        |
+
+## PyTorch dependency advisories
+
+Hakuli 2.x requires a patched PyTorch installation. New installations must
+use `torch>=2.15.0` with Python 3.11+.
+
+| Advisory | Impact | Fixed in PyTorch |
+| --- | --- | --- |
+| [CVE-2025-32434](https://github.com/advisories/GHSA-53q9-r3pm-6pq6) | Code execution via malicious checkpoint | 2.6.0 |
+| [CVE-2026-24747](https://github.com/advisories/GHSA-63cw-57p8-fm3p) | Code execution via malicious checkpoint | 2.10.0 |
+| [GHSA-v32g-mr63-3j83](https://github.com/pytorch/pytorch/security/advisories/GHSA-v32g-mr63-3j83) | File disclosure via malicious checkpoint | 2.15.0 |
+
+These advisories affect upstream PyTorch checkpoint loading, not Hakuli's
+optimizer implementation. Do not load checkpoints from untrusted sources.
+
+The benchmark reproduction environment is pinned to the dependencies used
+for the October 2026 results and is not suitable for production or
+untrusted inputs. Run historical reproductions in an isolated environment.
 
 ## Reporting a vulnerability
 

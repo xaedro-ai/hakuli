@@ -5,6 +5,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Root scanning otherwise also updates nested frozen benchmark manifests.
+    exclude-paths:
+      - "benchmarks/**"
     groups:
       python-dependencies:
         patterns:

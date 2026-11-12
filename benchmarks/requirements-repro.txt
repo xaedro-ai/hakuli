@@ -8,6 +8,10 @@
 # from Dependabot updates in .github/dependabot.yml. Current, unpinned harness
 # dependencies live in requirements.txt.
 #
+# Historical dependencies include known PyTorch and Transformers security
+# vulnerabilities. Reproduce results only in an isolated environment;
+# do not load untrusted model files or provide sensitive credentials.
+#
 # The reported run used the CUDA 12.4 build of PyTorch 2.5.1.
 --extra-index-url https://download.pytorch.org/whl/cu124
 torch==2.5.1+cu124

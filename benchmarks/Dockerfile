@@ -1,5 +1,8 @@
 FROM python:3.11-slim
 
+# Historical reproduction environment, including vulnerable dependencies.
+# Run isolated without credentials or untrusted checkpoints (see SECURITY.md).
+#
 # Reproduces the software environment of the reported experiment:
 # Python 3.11, PyTorch 2.5.1+cu124, Transformers 4.57.6, Datasets 5.0.1.
 # benchmarks/requirements-repro.txt pins the historical versions and points
