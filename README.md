@@ -22,8 +22,8 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 [![CI](https://github.com/xaedro-ai/hakuli/actions/workflows/ci.yml/badge.svg)](https://github.com/xaedro-ai/hakuli/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/hakuli.svg)](https://pypi.org/project/hakuli/)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](pyproject.toml)
-[![PyTorch](https://img.shields.io/badge/pytorch-2.1%2B-ee4c2c.svg)](https://pytorch.org)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
+[![PyTorch](https://img.shields.io/badge/pytorch-2.15%2B-ee4c2c.svg)](https://pytorch.org)
 
 ---
 
@@ -106,7 +106,18 @@ cd hakuli
 pip install -e .
 ```
 
-Requires Python 3.9+ and PyTorch 2.1+. CUDA is recommended but not required.
+Requires Python 3.11+ and PyTorch 2.15.0+. CUDA is recommended but not required.
+ 
+**Security:** PyTorch versions before 2.10.0 are affected by checkpoint-loading
+RCE advisories (including CVE-2025-32434 and CVE-2026-24747), and
+PyTorch 2.14.x is affected by GHSA-v32g-mr63-3j83 (arbitrary file read
+during checkpoint loading). The supported installation baseline is therefore
+PyTorch 2.15.0+. Do not load untrusted model checkpoints even when using
+`weights_only=True`; see [SECURITY.md](SECURITY.md).
+
+The files in `benchmarks/requirements-repro.txt` intentionally preserve an
+insecure historical environment for scientific reproducibility. **Do not use
+that environment for ordinary training or to load untrusted checkpoints.**
 
 ## Quick start
 
