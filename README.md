@@ -107,17 +107,10 @@ pip install -e .
 ```
 
 Requires Python 3.11+ and PyTorch 2.15.0+. CUDA is recommended but not required.
- 
-**Security:** PyTorch versions before 2.10.0 are affected by checkpoint-loading
-RCE advisories (including CVE-2025-32434 and CVE-2026-24747), and
-PyTorch 2.14.x is affected by GHSA-v32g-mr63-3j83 (arbitrary file read
-during checkpoint loading). The supported installation baseline is therefore
-PyTorch 2.15.0+. Do not load untrusted model checkpoints even when using
-`weights_only=True`; see [SECURITY.md](SECURITY.md).
 
-The files in `benchmarks/requirements-repro.txt` intentionally preserve an
-insecure historical environment for scientific reproducibility. **Do not use
-that environment for ordinary training or to load untrusted checkpoints.**
+For security advisories affecting PyTorch checkpoint loading, see
+[SECURITY.md](SECURITY.md). The pinned benchmark environment is historical
+and not intended for production.
 
 ## Quick start
 
