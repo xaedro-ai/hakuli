@@ -6,3 +6,4 @@ bitsandbytes>=0.50.2
 galore-torch
 q-galore-torch
 matplotlib>=3.11.2
+setuptools>=84.1.0
