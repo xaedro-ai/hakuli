@@ -20,7 +20,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip 'setuptools>=84.1.0'
           pip install torch --index-url https://download.pytorch.org/whl/cpu
           pip install -e ".[dev]"
           python -m pip check
@@ -36,14 +36,26 @@ jobs:
           python-version: "3.11"
       - name: Install maintained benchmark dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip 'setuptools>=84.1.0'
           pip install 'torch>=2.15.0' --index-url https://download.pytorch.org/whl/cpu
           pip install -r benchmarks/requirements-repro.txt
           python -m pip check
       - name: Audit installed benchmark dependencies
         run: |
           pip install pip-audit
-          pip-audit
+          # PyPI advisories use the public torch version, without the +cpu suffix.
+          python - <<'EOF'
+          from importlib.metadata import distributions
+          from pathlib import Path
+
+          requirements = []
+          for dist in distributions():
+              name = dist.metadata["Name"]
+              version = dist.version.split("+", 1)[0] if name.lower() == "torch" else dist.version
+              requirements.append(f"{name}=={version}")
+          Path("/tmp/benchmark-audit.txt").write_text("\n".join(sorted(requirements)) + "\n")
+          EOF
+          pip-audit --no-deps --disable-pip -r /tmp/benchmark-audit.txt
       - name: Run synthetic benchmark
         env:
           OMP_NUM_THREADS: "2"
