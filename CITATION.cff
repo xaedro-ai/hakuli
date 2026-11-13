@@ -13,8 +13,8 @@ authors:
     given-names: "Evaristo"
     affiliation: "XAEDRO"
     email: "research@xaedro.com"
-version: 1.0.0
-date-released: "2026-10-10"
+version: 2.1.1
+date-released: "2026-11-13"
 license: Apache-2.0
 repository-code: "https://github.com/xaedro-ai/hakuli"
 keywords:
