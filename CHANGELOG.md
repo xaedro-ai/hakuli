@@ -7,12 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-11-13
+
 ### Security
 
 - Require PyTorch >=2.15.0 and Python >=3.11 to exclude vulnerable
   PyTorch checkpoint-loading versions.
-- Update active benchmark requirements and CI compatibility.
-- Preserve the historical benchmark dependency snapshot with a security warning.
+- Require Transformers >=5.22.2 in benchmark environments.
+- Require setuptools >=84.1.0 for builds and benchmark environments.
+- Route the legacy benchmark requirements and Docker builds to maintained
+  dependencies. Preserve the original measurement versions as documentation.
+- Audit installed benchmark dependencies and run a synthetic benchmark in CI.
+- The optimizer update rule and recorded benchmark results are unchanged.
 
 ### Compatibility
 

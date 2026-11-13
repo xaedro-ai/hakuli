@@ -49,6 +49,10 @@ Hakuli is not affiliated with, or endorsed by, the APOLLO authors. See
 
 ## What is new in 2.x
 
+**2.1.1** is a dependency security update. It requires Python 3.11+ and
+PyTorch 2.15.0+; the optimizer update rule is unchanged. See
+[`CHANGELOG.md`](CHANGELOG.md) for compatibility and benchmark dependency changes.
+
 **2.1** adds experimental update-rule options, off by default and measured
 (see [Experimental options](#experimental-options-21) and
 [`benchmarks/RESULTS.md`](benchmarks/RESULTS.md)).
@@ -109,8 +113,9 @@ pip install -e .
 Requires Python 3.11+ and PyTorch 2.15.0+. CUDA is recommended but not required.
 
 For security advisories affecting PyTorch checkpoint loading, see
-[SECURITY.md](SECURITY.md). The pinned benchmark environment is historical
-and not intended for production.
+[SECURITY.md](SECURITY.md). All benchmark installation entry points use
+maintained dependencies; the original measurement versions are recorded in
+[`benchmarks/historical-environment.md`](benchmarks/historical-environment.md).
 
 ## Quick start
 
