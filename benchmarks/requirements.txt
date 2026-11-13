@@ -1,8 +1,9 @@
 torch>=2.15.0
-transformers>=5.19.0
+transformers>=5.22.2
 datasets>=5.1.0
 accelerate>=1.15.0
 bitsandbytes>=0.50.2
 galore-torch
 q-galore-torch
 matplotlib>=3.11.2
+setuptools>=84.1.0
