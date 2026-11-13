@@ -35,14 +35,14 @@ The anchors are stored machine-readable in `results/published.json`.
 
 ## Running a benchmark
 
-Two dependency files coexist:
+`requirements.txt` contains the maintained dependencies for new runs.
+`requirements-repro.txt` is a compatibility entry point that includes the
+same file, so commands in the published report use patched dependencies.
+The exact versions used for the recorded results are documented in
+[`historical-environment.md`](historical-environment.md). New runs do not
+recreate that historical software environment.
 
-- `requirements-repro.txt`: frozen snapshot with the exact versions used for
-  the results in the technical report and `RESULTS.md`. It is excluded from
-  automatic dependency updates and should not be modified.
-- `requirements.txt`: current, compatible versions for new runs.
-
-Reproducible environment of the reported experiment (recommended):
+Build the maintained benchmark environment:
 
 ```bash
 docker build -f benchmarks/Dockerfile -t hakuli-bench .
@@ -51,10 +51,10 @@ docker run --rm --gpus all -v $(pwd)/benchmarks/results:/workspace/benchmarks/re
     --config benchmarks/configs/memory_llama7b_hakuli.json
 ```
 
-Or directly on the host with the frozen versions:
+Or install the maintained dependencies directly on the host:
 
 ```bash
-pip install -r benchmarks/requirements-repro.txt
+pip install -r benchmarks/requirements.txt
 python benchmarks/run_benchmark.py --config benchmarks/configs/memory_llama7b_hakuli.json
 ```
 

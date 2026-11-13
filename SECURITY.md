@@ -23,9 +23,11 @@ use `torch>=2.15.0` with Python 3.11+.
 These advisories affect upstream PyTorch checkpoint loading, not Hakuli's
 optimizer implementation. Do not load checkpoints from untrusted sources.
 
-The benchmark reproduction environment is pinned to the dependencies used
-for the October 2026 results and is not suitable for production or
-untrusted inputs. Run historical reproductions in an isolated environment.
+All benchmark installation entry points, including the Dockerfile and the
+legacy `requirements-repro.txt` command, use maintained dependencies.
+The vulnerable versions used for the October 2026 measurements are recorded
+only as provenance in `benchmarks/historical-environment.md`; new runs do
+not recreate that historical environment.
 
 ## Reporting a vulnerability
 
